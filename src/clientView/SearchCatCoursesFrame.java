@@ -1,6 +1,8 @@
 package clientView;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
@@ -25,6 +27,7 @@ public class SearchCatCoursesFrame extends JFrame {
 		label = new JLabel("Please enter the Course: ");
 		userInput = new JTextField(20);
 		textArea= new JTextArea(1,50);
+		inputPanel.setLayout(new FlowLayout());
 		
 		inputPanel.add(label);
 		inputPanel.add(userInput);

@@ -1,6 +1,7 @@
 package clientView;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.io.BufferedReader;
 
 import javax.swing.JButton;
@@ -12,6 +13,10 @@ import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton b1,b2,b3,b4,b5,b6; //buttons for the GUI
 	private BufferedReader scan; 
 	
@@ -25,18 +30,16 @@ public class MainFrame extends JFrame {
 		b6 = new JButton("Quit");
 		
 		setTitle("Main Window");
-		setSize(250, 250);
+		setSize(350, 400);
 		
-		JPanel buttonPanel= new JPanel();
-		buttonPanel.add(b1);
-		buttonPanel.add(b2);
-		buttonPanel.add(b3);
-		buttonPanel.add(b4);
-		buttonPanel.add(b5);
-		buttonPanel.add(b6);
-
-		setLayout(new BorderLayout());
-		add("Center", getContentPane().add(buttonPanel));
+		add(b1);
+		add(b2);
+		add(b3);
+		add(b4);
+		add(b5);
+		add(b6);
+		
+		setLayout(new GridLayout(6,0));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		
