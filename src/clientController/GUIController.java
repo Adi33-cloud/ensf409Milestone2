@@ -6,34 +6,53 @@ import clientView.*;
 public class GUIController {
 	
 	private MainFrame main;
+	private SearchCatCoursesFrame option1;
+	private AddCourseFrame option2;
+	private RemoveCourseFrame option3;
+	private ViewCatalogueFrame option4;
+	private ViewStudentCoursesFrame option5;
 	private String name;
-	private String number;
+	private String id;
+	private String option;
 
 	public GUIController() {
 		main = new MainFrame();
 		main.getB1().addActionListener((ActionEvent e)->{
-			new SearchCatCoursesFrame();
-			System.out.print("Works");
+			option1=new SearchCatCoursesFrame();
+			name= option1.getCourse();
+			option="1";
 		});
 		
 		main.getB2().addActionListener((ActionEvent e)->{
-			new AddCourseFrame();
+			option2=new AddCourseFrame();
+			name= option2.getCourse();
+			id= option2.getId();
+			option= "2";
+
 		});
 		
 		main.getB3().addActionListener((ActionEvent e)->{
-			new RemoveCourseFrame();
+			option3=new RemoveCourseFrame();
+			name= option3.getCourse();
+			id= option3.getStudentId();
+			option="3";
 		});
 		
 		main.getB4().addActionListener((ActionEvent e)->{
-			new ViewCatalogueFrame();
+			option4=new ViewCatalogueFrame();
+			option="4";
 		});
 		
 		main.getB5().addActionListener((ActionEvent e)->{
-			new ViewStudentCoursesFrame();
+			option5=new ViewStudentCoursesFrame();
+			id= option5.getId();
+			option="5";
+			
 		});
 		
 		main.getB6().addActionListener((ActionEvent e)->{
 			System.exit(0);
+			option="6";
 		});
 
 

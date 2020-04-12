@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 
 public class SearchCatCoursesFrame extends JFrame {
+	private String course;
 	private JFrame inputFrame;
 	private JPanel inputPanel;
 	private JLabel label;
@@ -36,11 +37,18 @@ public class SearchCatCoursesFrame extends JFrame {
 		inputFrame.setVisible(true);
 		
 		userInput.addActionListener((ActionEvent a) -> {
+			course=userInput.getText();
 			textArea.setText("The course you entered was "+ userInput.getText());
+			
 });
 
 
 	}
+
+	public String getCourse() {
+		return course;
+	}
+
 }
 
  
