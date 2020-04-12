@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import clientView.*;
 
 public class GUIController {
-	
+	private ClientCom clientCom; // confused as to hoe to use this to send info to the server. 
 	private MainFrame main;
 	private SearchCatCoursesFrame option1;
 	private AddCourseFrame option2;

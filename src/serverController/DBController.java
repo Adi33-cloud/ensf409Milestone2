@@ -3,13 +3,36 @@ import serverModel.*;
 
 
 public class DBController {
+	private ServerCom serverCom; //don't know what to communicate
 	private CourseCatalogue cat;
 	private Student student;
+	private String output;
 	
 	public DBController(String studentName,int StudentId) {
 		cat= new CourseCatalogue();
 		student= new Student(studentName,StudentId);
+		output=selection();
 	}
+	
+	public String selection() {
+		switch(serverCom.getOption()) {
+		case 1:
+			return searchCourse(serverCom.getCourseName(),serverCom.getCourseId());
+		case 2:
+			// still need to figure out how to communicate for add course
+		case 3:
+			return removeCourse(serverCom.getCourseName(),serverCom.getCourseId());
+		case 4:
+			return printCatalogue();
+		case 5:
+			return printStudentCourses();
+			
+		default:
+			return "Invalid input. Try again.";
+	}
+		
+	}
+	
 	
 	public String searchCourse(String courseName, int courseNumber) {
 		

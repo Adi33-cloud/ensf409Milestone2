@@ -9,6 +9,12 @@ import java.util.concurrent.Executors;
 public class ServerCom {
 	private ServerSocket serverSocket;
 	private ExecutorService pool; 
+	private String courseName;
+	private int courseId;
+	private String studentName;
+	private String stdentId;
+	private int option;
+	
 	
 	public ServerCom (int portNumber) {
 		try {
@@ -22,6 +28,8 @@ public class ServerCom {
 	public void communicateWithClient() {
 		
 	}
+	
+	
 
 	public static void main(String[] args) throws IOException{
 		ServerCom server = new ServerCom(8099);
@@ -29,6 +37,34 @@ public class ServerCom {
 		server.communicateWithClient();
 	}
 
+	public String getCourseName() {
+		return courseName;
+	}
+
+	
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	
+	public String getStdentId() {
+		return stdentId;
+	}
+
+	
+
+	public int getOption() {
+		return option;
+	}
+
+	
 
 
 }

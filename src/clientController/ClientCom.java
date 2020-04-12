@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientCom {
-	private GUIController guiControl;
 	private PrintWriter socketOut;
 	private Socket aSocket;
 	private String stdIn;
