@@ -14,7 +14,7 @@ public class ViewStudentCoursesFrame {
 	private JLabel label;
 	private JTextField userInput;
 	private JTextArea textArea;
-	private String id;
+	private int id;
 	
 	public ViewStudentCoursesFrame() {
 		inputFrame= new JFrame("Student Courses");
@@ -33,7 +33,7 @@ public class ViewStudentCoursesFrame {
 		inputFrame.setVisible(true);
 		
 		userInput.addActionListener((ActionEvent a) -> {
-			id= userInput.getText();
+			id= Integer.parseInt(userInput.getText());
 			textArea.setText(" Default Courses\n ensf409 \n math271 \n your mom \n Logans dad (DILF)");
 			
 });
@@ -41,7 +41,7 @@ public class ViewStudentCoursesFrame {
 
 }
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 

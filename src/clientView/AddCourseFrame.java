@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 
 public class AddCourseFrame extends JFrame {
 		private String course;
-		private String id;
+		private int id;
 		private JFrame inputFrame;
 		private JPanel inputPanel;
 		private JLabel label;
@@ -36,6 +36,7 @@ public class AddCourseFrame extends JFrame {
 			
 			userInput.addActionListener((ActionEvent a) -> {
 				course=userInput.getText();
+				id = Integer.parseInt(userInput.getText());
 				textArea.setText(userInput.getText() + " was added");
 	});
 
@@ -46,7 +47,7 @@ public class AddCourseFrame extends JFrame {
 			return course;
 		}
 
-		public String getId() {
+		public int getId() {
 			return id;
 		}
 

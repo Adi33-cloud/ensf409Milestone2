@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 
 public class RemoveCourseFrame {
 	private String course;
-	private String studentId;
+	private int courseId;
 	private JFrame inputFrame;
 	private JPanel inputPanel;
 	private JLabel label;
@@ -36,6 +36,7 @@ public class RemoveCourseFrame {
 		
 		userInput.addActionListener((ActionEvent a) -> {
 			course= userInput.getText();
+			courseId= Integer.parseInt(userInput.getText());
 			textArea.setText(userInput.getText() + " was removed");
 			
 });
@@ -47,8 +48,8 @@ public class RemoveCourseFrame {
 		return course;
 	}
 
-	public String getStudentId() {
-		return studentId;
+	public int getCourseId() {
+		return courseId;
 	}
 
 	

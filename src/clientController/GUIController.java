@@ -12,7 +12,7 @@ public class GUIController {
 	private ViewCatalogueFrame option4;
 	private ViewStudentCoursesFrame option5;
 	private String name;
-	private String id;
+	private int id;
 	private String option;
 
 	public GUIController() {
@@ -34,7 +34,7 @@ public class GUIController {
 		main.getB3().addActionListener((ActionEvent e)->{
 			option3=new RemoveCourseFrame();
 			name= option3.getCourse();
-			id= option3.getStudentId();
+			id= option3.getCourseId();
 			option="3";
 		});
 		
