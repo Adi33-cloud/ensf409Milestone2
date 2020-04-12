@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		
-		b1.addActionListener((ActionEvent e)->{
+		/*b1.addActionListener((ActionEvent e)->{
 			new SearchCatCoursesFrame();
 		});
 		
@@ -65,7 +65,7 @@ public class MainFrame extends JFrame {
 		
 		b6.addActionListener((ActionEvent e)->{
 			System.exit(0);
-	});
+	});*/
 
 		
 		
@@ -73,9 +73,81 @@ public class MainFrame extends JFrame {
 	
 	
 	
-	public static void main(String[] args) {
+	public JButton getB1() {
+		return b1;
+	}
+
+
+
+	public void setB1(JButton b1) {
+		this.b1 = b1;
+	}
+
+
+
+	public JButton getB2() {
+		return b2;
+	}
+
+
+
+	public void setB2(JButton b2) {
+		this.b2 = b2;
+	}
+
+
+
+	public JButton getB3() {
+		return b3;
+	}
+
+
+
+	public void setB3(JButton b3) {
+		this.b3 = b3;
+	}
+
+
+
+	public JButton getB4() {
+		return b4;
+	}
+
+
+
+	public void setB4(JButton b4) {
+		this.b4 = b4;
+	}
+
+
+
+	public JButton getB5() {
+		return b5;
+	}
+
+
+
+	public void setB5(JButton b5) {
+		this.b5 = b5;
+	}
+
+
+
+	public JButton getB6() {
+		return b6;
+	}
+
+
+
+	public void setB6(JButton b6) {
+		this.b6 = b6;
+	}
+
+
+
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new MainFrame();
-	}
+	}*/
 
 }
