@@ -12,7 +12,7 @@ public class ServerCom {
 	private String courseName;
 	private int courseId;
 	private String studentName;
-	private String stdentId;
+	private String studentId;
 	private int option;
 	
 	
@@ -54,8 +54,8 @@ public class ServerCom {
 	}
 
 	
-	public String getStdentId() {
-		return stdentId;
+	public String getStudentId() {
+		return studentId;
 	}
 
 	
