@@ -1,7 +1,7 @@
-package serverController;
+package serverModel;
+
 import java.util.ArrayList;
 
-import serverModel.*;
 public class DBManager {
 	ArrayList <Course> courseList;
 

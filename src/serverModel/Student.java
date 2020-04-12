@@ -78,11 +78,14 @@ public class Student {
 		return null;
 	}
 	
-	public void printCourses() {
+	public String printCourses() {
+		String st= "";
 		if(offeringList.size() == 0)
-			System.out.println("You are not enrolled in any courses!\n");
-		for(CourseOffering c : offeringList)
-			System.out.println(c);
+			return "You are not enrolled in any courses!\n";
+		for(CourseOffering c : offeringList) {
+			 st+= c.toString();
+		}
+		return st;
 	}
 	
 	public void addCourse(Course c) {
@@ -111,16 +114,11 @@ public class Student {
 		}
 	}
 	
-	public void removeCourse() {
-		@SuppressWarnings("resource")
-		Scanner scan = new Scanner(System.in);
-		System.out.print("Please enter course name: ");
-		String name = scan.nextLine();
-		System.out.print("Please enter course number: ");
-		int num = scan.nextInt();
+	public String removeCourse(String name, int num) {
+		
 		CourseOffering c = this.searchCourse(name, num);
 		if(c == null) {
-			System.out.println("You are not enrolled in this course or it does not exist.");
+			return "You are not enrolled in this course or it does not exist.";
 		}
 		else {
 			Registration reg = this.searchRegistration(name, num);
@@ -128,7 +126,7 @@ public class Student {
 			this.removeCourseOffering(c);
 			c.removeRegistration(reg);
 			c.removeStudent(this);
-			System.out.println("\nCourse Successfully removed.");
+			return "\nCourse Successfully removed.";
 		}
 	}
 	
