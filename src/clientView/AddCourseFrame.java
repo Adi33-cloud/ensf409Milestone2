@@ -9,7 +9,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class AddCourseFrame extends JFrame {
-			
+		private String course;
+		private String id;
 		private JFrame inputFrame;
 		private JPanel inputPanel;
 		private JLabel label;
@@ -18,7 +19,7 @@ public class AddCourseFrame extends JFrame {
 		
 		public AddCourseFrame() {
 			
-			inputFrame= new JFrame("Add COurse To Student Courses");
+			inputFrame= new JFrame("Add Course To Student Courses");
 			inputPanel = new JPanel();
 			label = new JLabel("Please enter the Course you want to add: ");
 			userInput = new JTextField(20);
@@ -34,9 +35,20 @@ public class AddCourseFrame extends JFrame {
 			inputFrame.setVisible(true);
 			
 			userInput.addActionListener((ActionEvent a) -> {
+				course=userInput.getText();
 				textArea.setText(userInput.getText() + " was added");
 	});
 
 
 	}
+
+		public String getCourse() {
+			return course;
+		}
+
+		public String getId() {
+			return id;
+		}
+
+		
 }
