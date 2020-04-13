@@ -11,7 +11,7 @@ public class DBController {
 	public DBController(String studentName,int StudentId) {
 		cat= new CourseCatalogue();
 		student= new Student(studentName,StudentId);
-		output=selection();
+		//output=selection();
 	}
 	
 	public String selection() {
@@ -29,7 +29,7 @@ public class DBController {
 			
 		default:
 			return "Invalid input. Try again.";
-	}
+		}
 		
 	}
 	

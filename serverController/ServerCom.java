@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import clientController.GUIController;
+
 
 public class ServerCom {
 	private ServerSocket serverSocket;
@@ -14,6 +16,7 @@ public class ServerCom {
 	private String studentName;
 	private String studentId;
 	private int option;
+	private GUIController theGUI;
 	
 	
 	public ServerCom (int portNumber) {
@@ -26,10 +29,29 @@ public class ServerCom {
 	}
 	
 	public void communicateWithClient() {
-		DBController theController = new DBController("Logan",100);
+		try {
+			while (true) {
+				System.out.println("Waiting to begin...");
+				serverSocket.accept();
+				theGUI = new GUIController();
+				System.out.println("Connection Accepted");
+				pool.execute(theGUI);
+			}
+		} catch (Exception e) {
+			//threadPool.shutdown();
+			e.printStackTrace();
+		}
 	}
 	
 	
+
+	public GUIController getTheGUI() {
+		return theGUI;
+	}
+
+	public void setTheGUI(GUIController theGUI) {
+		this.theGUI = theGUI;
+	}
 
 	public static void main(String[] args) throws IOException{
 		ServerCom server = new ServerCom(8099);

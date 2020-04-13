@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 import clientModel.Student;
 import clientView.*;
 
-public class GUIController {
+public class GUIController implements Runnable {
 	private ClientCom clientCom; // confused as to hoe to use this to send info to the server. 
 	private Student student;
 	private LoginFrame login;
@@ -109,7 +109,11 @@ public class GUIController {
 	}
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		new GUIController();
+	}
+
+	@Override
+	public void run() {
 		new GUIController();
 	}
 
