@@ -10,33 +10,41 @@ import javax.swing.JTextField;
 
 public class RemoveCourseFrame {
 	private String course;
-	private String studentId;
+	private String courseId;
 	private JFrame inputFrame;
 	private JPanel inputPanel;
 	private JLabel label;
+	private JLabel label2;
 	private JTextField userInput;
+	private JTextField userInputCourseId;
 	private JTextArea textArea;
 	
 	public RemoveCourseFrame() {
 		
 		inputFrame= new JFrame("Remove Course To Student Courses");
 		inputPanel = new JPanel();
-		label = new JLabel("Please enter the Course you want to remove: ");
-		userInput = new JTextField(20);
-		textArea= new JTextArea(1,50);
+		label = new JLabel("Please enter the Course name you want to remove: ");
+		userInput = new JTextField(10);
+		label2= new JLabel("Please enter the Course ID number");
+		userInputCourseId= new JTextField(10);
+		textArea= new JTextArea(1,30);
 		
 		inputPanel.add(label);
 		inputPanel.add(userInput);
+		inputPanel.add(label2);
+		inputPanel.add(userInputCourseId);
 		inputPanel.add(textArea);
 		inputFrame.add(inputPanel);
 		
 		inputFrame.pack();
 		userInput.setVisible(true);
+		userInputCourseId.setVisible(true);
 		inputFrame.setVisible(true);
 		
 		userInput.addActionListener((ActionEvent a) -> {
 			course= userInput.getText();
-			textArea.setText(userInput.getText() + " was removed");
+			courseId= userInputCourseId.getText();
+			textArea.setText(course +" "+ courseId+  " was removed");
 			
 });
 
@@ -47,8 +55,8 @@ public class RemoveCourseFrame {
 		return course;
 	}
 
-	public String getStudentId() {
-		return studentId;
+	public String getCourseId() {
+		return courseId;
 	}
 
 	
