@@ -58,6 +58,30 @@ public class LoginFrame {
 
 }
 
+	public JTextField getUserInputStudentName() {
+		return userInputStudentName;
+	}
+
+	public void setUserInputStudentName(JTextField userInputStudentName) {
+		this.userInputStudentName = userInputStudentName;
+	}
+
+	public JTextField getUserInputStudentId() {
+		return userInputStudentId;
+	}
+
+	public void setUserInputStudentId(JTextField userInputStudentId) {
+		this.userInputStudentId = userInputStudentId;
+	}
+
+	public JButton getLogin() {
+		return login;
+	}
+
+	public void setLogin(JButton login) {
+		this.login = login;
+	}
+
 	public String getStudentName() {
 		return studentName;
 	}

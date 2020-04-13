@@ -21,12 +21,18 @@ public class GUIController {
 
 	public GUIController() {
 		login= new LoginFrame();
-		student=new Student(login.getStudentName(),Integer.parseInt(login.getStudentId()));
+		login.getLogin().addActionListener((ActionEvent a) -> {
+			student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
+			initialize();
+		});
+	}
+	
+	private void initialize() {
 		main = new MainFrame();
 		main.getB1().addActionListener((ActionEvent e)->{
 			option1=new SearchCatCoursesFrame();
 			name= option1.getCourse();
-			id= Integer.parseInt(option1.getCourseId()); 
+			id = Integer.parseInt(option1.getCourseId()); 
 			option="1";
 		});
 		
@@ -68,8 +74,7 @@ public class GUIController {
 			System.exit(0);
 			option="6";
 		});
-
-
+		
 	}
 	
 	public static void main(String[] args) {
