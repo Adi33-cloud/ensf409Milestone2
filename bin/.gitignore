@@ -1,7 +1,10 @@
 /clientController/
+<<<<<<< HEAD
 /src/
 /srclientController/
 /clientModel/
+=======
+>>>>>>> branch 'master' of https://github.com/Adi33-cloud/ensf409Milestone2.git
 /clientView/
 /serverController/
 /serverModel/
