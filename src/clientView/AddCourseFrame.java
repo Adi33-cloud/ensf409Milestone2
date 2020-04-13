@@ -10,11 +10,16 @@ import javax.swing.JTextField;
 
 public class AddCourseFrame extends JFrame {
 		private String course;
-		private String id;
+		private String courseId;
+		private String courseSection;
 		private JFrame inputFrame;
 		private JPanel inputPanel;
 		private JLabel label;
-		private JTextField userInput;
+		private JLabel label2;
+		private JLabel label3;
+		private JTextField userInputCourse;
+		private JTextField userInputCourseId;
+		private JTextField userInputCourseSection;
 		private JTextArea textArea;
 		
 		public AddCourseFrame() {
@@ -22,21 +27,34 @@ public class AddCourseFrame extends JFrame {
 			inputFrame= new JFrame("Add Course To Student Courses");
 			inputPanel = new JPanel();
 			label = new JLabel("Please enter the Course you want to add: ");
-			userInput = new JTextField(20);
+			label2= new JLabel("Please enter the Course number");
+			label3= new JLabel("Please enter the Course section you want to add");
+			userInputCourse = new JTextField(20);
+			userInputCourseId= new JTextField(20);
+			userInputCourseSection= new JTextField(20);
 			textArea= new JTextArea(1,50);
 			
 			inputPanel.add(label);
-			inputPanel.add(userInput);
+			inputPanel.add(userInputCourse);
+			inputPanel.add(label2);
+			inputPanel.add(userInputCourseId);
+			inputPanel.add(label3);
+			inputPanel.add(userInputCourseSection);
 			inputPanel.add(textArea);
 			inputFrame.add(inputPanel);
 			
 			inputFrame.pack();
-			userInput.setVisible(true);
+			userInputCourse.setVisible(true);
+			userInputCourseId.setVisible(true);
+			userInputCourseSection.setVisible(true);
 			inputFrame.setVisible(true);
 			
-			userInput.addActionListener((ActionEvent a) -> {
-				course=userInput.getText();
-				textArea.setText(userInput.getText() + " was added");
+			userInputCourse.addActionListener((ActionEvent a) -> {
+				course=userInputCourse.getText();
+				courseId = userInputCourseId.getText();
+				courseSection= userInputCourseSection.getText();
+				
+				textArea.setText(course +" "+ courseId+" section "+ courseSection+  " was added");
 	});
 
 
@@ -46,8 +64,12 @@ public class AddCourseFrame extends JFrame {
 			return course;
 		}
 
-		public String getId() {
-			return id;
+		public String getCourseId() {
+			return courseId;
+		}
+		
+		public String getCourseSection() {
+			return courseSection;
 		}
 
 		
