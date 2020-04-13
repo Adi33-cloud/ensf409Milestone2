@@ -1,6 +1,9 @@
 package clientController;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
 import clientModel.Student;
 import clientView.*;
 
@@ -31,30 +34,51 @@ public class GUIController {
 		main = new MainFrame();
 		main.getB1().addActionListener((ActionEvent e)->{
 			option1=new SearchCatCoursesFrame();
-			name= option1.getCourse();
-			id = Integer.parseInt(option1.getCourseId()); 
-			option="1";
+			JTextField theField = option1.getUserInputCourseId();
+			theField.addActionListener((ActionEvent a) -> {
+				option1.setCourse(option1.getuserInput().getText());
+				option1.setCourseId(option1.getUserInputCourseId().getText());
+				option1.getTextArea().setText("The course you entered was "+ option1.getCourse() + " " + option1.getCourseId());
+				name= option1.getCourse();
+				id = Integer.parseInt(option1.getCourseId()); 
+				option="1";
+			});
+			
 		});
 		
 		main.getB2().addActionListener((ActionEvent e)->{
 			option2=new AddCourseFrame();
-			name= option2.getCourse();
-			id= Integer.parseInt(option2.getCourseId());
-			section=Integer.parseInt(option2.getCourseSection());
-			option= "2";
-
+			
+			JButton theButton = option2.getAddButton();
+			theButton.addActionListener(ae->{
+				option2.setCourse(option2.getUserInputCourse().getText());
+				option2.setCourseId(option2.getUserInputCourseId().getText());
+				option2.setCourseSection(option2.getUserInputCourseSection().getText());
+				option2.getTextArea().setText(option2.getCourse() +" "+ option2.getCourseId()+" section "+ option2.getCourseSection()+  " was added");
+				name= option2.getCourse();
+				id= Integer.parseInt(option2.getCourseId());
+				section=Integer.parseInt(option2.getCourseSection());
+				option= "2";
+			});
 		});
 		
 		main.getB3().addActionListener((ActionEvent e)->{
 			option3=new RemoveCourseFrame();
-			name= option3.getCourse();
-			id= Integer.parseInt(option3.getCourseId());
-			section= 0;
-			option="3";
+			
+			JButton theButton = option3.getRemoveButton();
+			theButton.addActionListener(ae->{
+				option3.setCourse(option3.getUserInput().getText());
+				option3.setCourseId(option3.getUserInputCourseId().getText());
+				option3.getTextArea().setText(option3.getCourse() +" "+ option3.getCourseId()+  " was removed");
+				id= Integer.parseInt(option3.getCourseId());
+				section= 0;
+				option="3";
+			});
 		});
 		
 		main.getB4().addActionListener((ActionEvent e)->{
 			option4=new ViewCatalogueFrame();
+			
 			name=null;
 			id=0;
 			section=0;
@@ -63,11 +87,18 @@ public class GUIController {
 		
 		main.getB5().addActionListener((ActionEvent e)->{
 			option5=new ViewStudentCoursesFrame();
-			name=null;
-			id= Integer.parseInt(option5.getId());
-			section=0;
-			option="5";
 			
+			JButton theButton = option5.getSearchButton();
+			theButton.addActionListener(ae->{
+				option5.setId(option5.getUserInput().getText());
+				option5.getTextArea().setText(" Default Courses\n ensf409 \n math271 \n your mom \n Logans dad (DILF)");
+				name=null;
+				id= Integer.parseInt(option5.getId());
+				section=0;
+				option="5";
+			});
+			
+
 		});
 		
 		main.getB6().addActionListener((ActionEvent e)->{

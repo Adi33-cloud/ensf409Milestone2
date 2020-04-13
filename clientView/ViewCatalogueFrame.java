@@ -26,9 +26,6 @@ public class ViewCatalogueFrame {
 		inputFrame.setVisible(true);
 		
 		textArea.setText("This is the defalut output becasue there is no course catalogue input");
-		
-
-
 
 }
 

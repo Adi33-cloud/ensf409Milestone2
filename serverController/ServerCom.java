@@ -26,7 +26,7 @@ public class ServerCom {
 	}
 	
 	public void communicateWithClient() {
-		
+		DBController theController = new DBController("Logan",100);
 	}
 	
 	

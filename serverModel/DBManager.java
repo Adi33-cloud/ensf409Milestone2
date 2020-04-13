@@ -16,7 +16,7 @@ public class DBManager {
 		studentList = new ArrayList<Student>();
 		try {
 			studentScan = new Scanner(new File("Students.txt"));
-			courseScan = new Scanner(new File("Students.txt"));
+			courseScan = new Scanner(new File("Courses.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -126,22 +126,31 @@ public class DBManager {
 		
 		String line;
 		String[] words;
-		
+		int i = 0;
+		int j = 0;
 		while(courseScan.hasNextLine()) {
 			line = courseScan.nextLine();
-			words = line.split("\\s+|,\\s*|\\.\\s;");
+			words = line.split(";");
 			courseList.add(new Course(words[0],Integer.parseInt(words[1])));
+			line = courseScan.nextLine();
+			words = line.split(";");
+			j=0;
+			while(j<words.length-1) {
+				courseList.get(i).addOffering(new CourseOffering(Integer.parseInt(words[j]), Integer.parseInt(words[j+1])));
+				j++;
+			}
+			i++;
 		}
 		
 		while(studentScan.hasNextLine()) {
 			line = studentScan.nextLine();
-			words = line.split("\\s+|,\\s*|\\.\\s;");
+			words = line.split(";");
 			studentList.add(new Student(words[0],Integer.parseInt(words[1])));
 		}
 		
 //		int i = 1;
 		for(Course course: courseList) {
-			course.addOffering(new CourseOffering(1,100));
+			//course.addOffering(new CourseOffering(1,100));
 			for(Student student: studentList)
 				course.getCourseOfferingAt(0).addStudent(student);
 		}
