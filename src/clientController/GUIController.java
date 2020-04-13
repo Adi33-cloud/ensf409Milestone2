@@ -1,10 +1,13 @@
 package clientController;
 import java.awt.event.ActionEvent;
 
+import clientModel.Student;
 import clientView.*;
 
 public class GUIController {
 	private ClientCom clientCom; // confused as to hoe to use this to send info to the server. 
+	private Student student;
+	private LoginFrame login;
 	private MainFrame main;
 	private SearchCatCoursesFrame option1;
 	private AddCourseFrame option2;
@@ -17,6 +20,8 @@ public class GUIController {
 	private String option;
 
 	public GUIController() {
+		login= new LoginFrame();
+		student=new Student(login.getStudentName(),Integer.parseInt(login.getStudentId()));
 		main = new MainFrame();
 		main.getB1().addActionListener((ActionEvent e)->{
 			option1=new SearchCatCoursesFrame();
