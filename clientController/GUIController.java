@@ -23,11 +23,11 @@ public class GUIController implements Runnable {
 	private String option;
 
 	public GUIController() {
-		login= new LoginFrame();
-		login.getLogin().addActionListener((ActionEvent a) -> {
-			student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
-			initialize();
-		});
+//		login= new LoginFrame();
+//		login.getLogin().addActionListener((ActionEvent a) -> {
+//			student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
+//			initialize();
+//		});
 	}
 	
 	private void initialize() {
@@ -108,13 +108,18 @@ public class GUIController implements Runnable {
 		
 	}
 	
-	public static void main(String[] args) {
-		new GUIController();
-	}
+//	public static void main(String[] args) {
+//		new GUIController();
+//	}
 
 	@Override
 	public void run() {
-		new GUIController();
+		//new GUIController();
+		login= new LoginFrame();
+		login.getLogin().addActionListener((ActionEvent a) -> {
+			student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
+			initialize();
+		});
 	}
 
 	
