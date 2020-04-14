@@ -62,7 +62,7 @@ public class GUIController implements Runnable {
 				option2.setCourse(option2.getUserInputCourse().getText());
 				option2.setCourseId(option2.getUserInputCourseId().getText());
 				option2.setCourseSection(option2.getUserInputCourseSection().getText());
-				option2.getTextArea().setText(option2.getCourse() +" "+ option2.getCourseId()+" section "+ option2.getCourseSection()+  " was added");
+//				option2.getTextArea().setText("");
 				name= option2.getCourse();
 				id= Integer.parseInt(option2.getCourseId());
 				section=Integer.parseInt(option2.getCourseSection());
@@ -78,7 +78,7 @@ public class GUIController implements Runnable {
 			theButton.addActionListener(ae->{
 				option3.setCourse(option3.getUserInput().getText());
 				option3.setCourseId(option3.getUserInputCourseId().getText());
-				option3.getTextArea().setText(option3.getCourse() +" "+ option3.getCourseId()+  " was removed");
+//				option3.getTextArea().setText(option3.getCourse() +" "+ option3.getCourseId()+  " was removed");
 				id= Integer.parseInt(option3.getCourseId());
 				section= 0;
 				name= option3.getCourse();
@@ -103,7 +103,7 @@ public class GUIController implements Runnable {
 			JButton theButton = option5.getSearchButton();
 			theButton.addActionListener(ae->{
 				option5.setId(option5.getUserInput().getText());
-				option5.getTextArea().setText(" Default Courses\n ensf409 \n math271 \n your mom \n Logans dad (DILF)");
+				option5.getTextArea().setText("");
 				name=null;
 				id= Integer.parseInt(option5.getId());
 				section=0;
@@ -125,13 +125,13 @@ public class GUIController implements Runnable {
 	public void display(String theData) {
 		switch(Integer.parseInt(option)) {
 		case 1:
-			option1.getTextArea().setText(theData);
+			option1.getTextArea().append(theData + "\n");
 			break;
 		case 2:
-			option2.getTextArea().setText(theData);
+			option2.getTextArea().append(theData + "\n");
 			break;
 		case 3:
-			option3.getTextArea().setText(theData);
+			option3.getTextArea().append(theData + "\n");
 			break;
 		case 4:
 			//option4.getTextArea().setText("hi vanessa");
@@ -139,7 +139,7 @@ public class GUIController implements Runnable {
 			System.out.println(theData.length());
 			break;
 		case 5:
-			option5.getTextArea().setText(theData);
+			option5.getTextArea().append(theData + "\n");
 			break;
 		case 6:
 			

@@ -20,12 +20,12 @@ public class ViewCatalogueFrame {
 		
 		inputFrame= new JFrame("View All courses in catalogue");
 		inputPanel = new JPanel();
-		textArea= new JTextArea(100,100);
+		textArea= new JTextArea(25,40);
 		scrollPane = new JScrollPane(textArea);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		inputPanel.add(scrollPane);
+		scrollPane.setVisible(true);
 		
-		inputPanel.add(textArea);
 		inputFrame.add(inputPanel);
 		
 		inputFrame.pack();

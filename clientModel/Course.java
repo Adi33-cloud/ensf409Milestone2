@@ -57,6 +57,22 @@ public class Course {
 		return st;
 	}
 
+	public ArrayList<Course> getPreReq() {
+		return preReq;
+	}
+
+	public void setPreReq(ArrayList<Course> preReq) {
+		this.preReq = preReq;
+	}
+
+	public ArrayList<CourseOffering> getOfferingList() {
+		return offeringList;
+	}
+
+	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
+		this.offeringList = offeringList;
+	}
+
 	public CourseOffering getCourseOfferingAt(int i) {
 		// TODO Auto-generated method stub
 		if (i < 0 || i >= offeringList.size() )

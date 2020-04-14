@@ -35,7 +35,7 @@ public class AddCourseFrame extends JFrame {
 			userInputCourse = new JTextField(20);
 			userInputCourseId= new JTextField(20);
 			userInputCourseSection= new JTextField(20);
-			textArea= new JTextArea(1,50);
+			textArea= new JTextArea(10,25);
 			
 			inputPanel.add(label);
 			inputPanel.add(userInputCourse);
@@ -46,8 +46,8 @@ public class AddCourseFrame extends JFrame {
 			inputPanel.add(addButton);
 			inputPanel.add(textArea);
 			inputFrame.add(inputPanel);
-			
-			inputFrame.pack();
+			 
+			inputFrame.setSize(300, 300);
 			userInputCourse.setVisible(true);
 			userInputCourseId.setVisible(true);
 			userInputCourseSection.setVisible(true);

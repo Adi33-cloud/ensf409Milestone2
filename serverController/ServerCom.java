@@ -45,7 +45,7 @@ public class ServerCom {
 	public void communicateWithClient() {
 		try {
 
-			DBController theDB = new DBController("Logan", 100, this);
+			DBController theDB = new DBController("Logan", 101, this);
 			String line = "";
 			String[] words;
 			while (true) {
@@ -82,7 +82,7 @@ public class ServerCom {
 		case 2:
 			courseName = words[1];
 			courseId = Integer.parseInt(words[2]);
-			section = Integer.parseInt(words[3]);
+			setSection(Integer.parseInt(words[3]));
 			break;
 		case 3:
 			courseName = words[1];
@@ -135,6 +135,14 @@ public class ServerCom {
 
 	public int getOption() {
 		return option;
+	}
+
+	public int getSection() {
+		return section;
+	}
+
+	public void setSection(int section) {
+		this.section = section;
 	}
 
 	

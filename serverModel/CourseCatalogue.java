@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class CourseCatalogue {
 private ArrayList <Course> courseList;
+private ArrayList <CourseOffering> offeringList;
 	
 	public CourseCatalogue () {
 		loadFromDataBase ();
@@ -13,9 +14,17 @@ private ArrayList <Course> courseList;
 		// TODO Auto-generated method stub
 		DBManager db = new DBManager();
 		setCourseList(db.readFromDataBase());
-		
+		offeringList = db.offeringList;
 	}
 	
+	public ArrayList<CourseOffering> getOfferingList() {
+		return offeringList;
+	}
+
+	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
+		this.offeringList = offeringList;
+	}
+
 	public void createCourseOffering (Course c, int secNum, int secCap) {
 		if (c!= null) {
 			CourseOffering theOffering = new CourseOffering (secNum, secCap);

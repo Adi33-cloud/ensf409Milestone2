@@ -16,6 +16,18 @@ public class Student {
 		studentRegList = new ArrayList<Registration>();
 	}
 
+	public ArrayList<Registration> getStudentRegList() {
+		return studentRegList;
+	}
+
+	public void setStudentRegList(ArrayList<Registration> studentRegList) {
+		this.studentRegList = studentRegList;
+	}
+
+	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
+		this.offeringList = offeringList;
+	}
+
 	public String getStudentName() {
 		return studentName;
 	}
@@ -88,29 +100,38 @@ public class Student {
 		return st;
 	}
 	
-	public void addCourse(Course c) {
-		if(c.getClassSize() == false)
-			System.out.println("\n"+c.getCourseName()+" "+c.getCourseNum()+" is not available due to low enrolment.");
+	public String addCourse(String name, int num, int section) {
+//		if(c.getClassSize() == false)
+//			System.out.println("\n"+c.getCourseName()+" "+c.getCourseNum()+" is not available due to low enrolment.");
+//		else {
+//			@SuppressWarnings("resource")
+//			Scanner scan = new Scanner(System.in);
+//			Registration reg = new Registration();
+//			if(c.checkPreReq(this) == false)
+//				System.out.println("\nYou do not have the necessary prerequisites for this course!\n");
+//			else{
+//				System.out.println(c);
+//				System.out.print("Please Select a Section: ");
+//				int i = scan.nextInt();
+//				if(c.getCourseOfferingAt(i-1) == null)
+//					System.out.println("/nSection not found.");
+//				else {
+//					reg.completeRegistration(this, c.getCourseOfferingAt(i-1));
+//					c.getCourseOfferingAt(i-1).addRegistration(reg);
+//					c.getCourseOfferingAt(i-1).addStudent(this);
+//					this.addCourseOffering(c.getCourseOfferingAt(i-1));
+//					System.out.println("Course Succussfully added.");
+//				}
+//			}
+//		}
+		CourseOffering c = this.searchCourse(name, num);
+		if(c == null) {
+			c = new CourseOffering(num, section);
+			offeringList.add(c);
+			return "\nCourse Successfully added.";
+		}
 		else {
-			@SuppressWarnings("resource")
-			Scanner scan = new Scanner(System.in);
-			Registration reg = new Registration();
-			if(c.checkPreReq(this) == false)
-				System.out.println("\nYou do not have the necessary prerequisites for this course!\n");
-			else{
-				System.out.println(c);
-				System.out.print("Please Select a Section: ");
-				int i = scan.nextInt();
-				if(c.getCourseOfferingAt(i-1) == null)
-					System.out.println("/nSection not found.");
-				else {
-					reg.completeRegistration(this, c.getCourseOfferingAt(i-1));
-					c.getCourseOfferingAt(i-1).addRegistration(reg);
-					c.getCourseOfferingAt(i-1).addStudent(this);
-					this.addCourseOffering(c.getCourseOfferingAt(i-1));
-					System.out.println("Course Succussfully added.");
-				}
-			}
+			return "\nYou are already enrolled in this course.";
 		}
 	}
 	

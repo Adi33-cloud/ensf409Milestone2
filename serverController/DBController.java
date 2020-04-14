@@ -11,6 +11,7 @@ public class DBController {
 	public DBController(String studentName,int StudentId, ServerCom serverCom) {
 		cat= new CourseCatalogue();
 		student= new Student(studentName,StudentId);
+		student.setOfferingList(cat.getOfferingList());
 		this.serverCom = serverCom;
 	}
 	
@@ -23,7 +24,7 @@ public class DBController {
 		case 1:
 			return searchCourse(serverCom.getCourseName(),serverCom.getCourseId());
 		case 2:
-			// still need to figure out how to communicate for add course
+			return addCourse(serverCom.getCourseName(),serverCom.getCourseId(),serverCom.getSection());
 		case 3:
 			return removeCourse(serverCom.getCourseName(),serverCom.getCourseId());
 		case 4:
@@ -38,10 +39,17 @@ public class DBController {
 	}
 	
 	
+	private String addCourse(String courseName, int courseId, int section) {
+		// TODO Auto-generated method stub
+		return student.addCourse(courseName, courseId, section);
+	}
+
 	public String searchCourse(String courseName, int courseNumber) {
 		
 		Course theCourse= cat.searchCat(courseName, courseNumber);
-		return theCourse.toString();
+		if(theCourse != null)
+			return theCourse.toString();
+		else return null;
 	}
 	
 	/*public String addCourse(String courseName, int courseNumber) {
