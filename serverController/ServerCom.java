@@ -1,7 +1,12 @@
 package serverController;
 import serverModel.*;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,13 +21,21 @@ public class ServerCom {
 	private String studentName;
 	private String studentId;
 	private int option;
-	private GUIController theGUI;
+	private Socket aSocket;
+	private BufferedReader socketIn;
+	private PrintWriter socketOut;
 	
 	
 	public ServerCom (int portNumber) {
 		try {
 			serverSocket = new ServerSocket(portNumber);
+			aSocket = new Socket();
+			System.out.println("Waiting to begin...");
+			aSocket = serverSocket.accept();
+			System.out.println("Connection Accepted");
 			pool= Executors.newCachedThreadPool();
+			socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
+			socketOut = new PrintWriter(aSocket.getOutputStream(), true);
 		} catch (IOException e) {
 			
 		}
@@ -30,12 +43,22 @@ public class ServerCom {
 	
 	public void communicateWithClient() {
 		try {
+
+			DBController theDB = new DBController("Logan", 100, this);
+			String line = "";
 			while (true) {
-				System.out.println("Waiting to begin...");
-				serverSocket.accept();
-				theGUI = new GUIController();
-				System.out.println("Connection Accepted");
-				pool.execute(theGUI);
+				line = socketIn.readLine();
+				if(line!=null && !line.isEmpty()) {
+					try {
+					option = Integer.parseInt(line);
+					System.out.println(line);
+					theDB.update();
+					socketOut.println(theDB.getOutput());
+					System.out.println(theDB.getOutput());
+					}catch(NumberFormatException e) {
+						//System.out.println(line);
+					}
+				}
 			}
 		} catch (Exception e) {
 			//threadPool.shutdown();
@@ -45,13 +68,6 @@ public class ServerCom {
 	
 	
 
-	public GUIController getTheGUI() {
-		return theGUI;
-	}
-
-	public void setTheGUI(GUIController theGUI) {
-		this.theGUI = theGUI;
-	}
 
 	public static void main(String[] args) throws IOException{
 		ServerCom server = new ServerCom(8099);

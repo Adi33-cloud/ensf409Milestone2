@@ -11,41 +11,38 @@ public class ClientCom {
 	private Socket aSocket;
 	private String stdIn;
 	private BufferedReader socketIn;
+	private String line;
+	private GUIController theGUI;
 	
 	public ClientCom(String serverName, int portNumber){
 		try {
 			aSocket = new Socket(serverName, portNumber);
 			socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-			socketOut = new PrintWriter((aSocket.getOutputStream()), true);
+			socketOut = new PrintWriter(aSocket.getOutputStream(), true);
+			theGUI = new GUIController(socketIn, socketOut);
 		} catch (IOException e) {
 			System.err.println(e.getStackTrace());
 		}
-		
 	}
 	
 	public void communicate() {
+		theGUI.run();
+		String response = "";
+		boolean on = true;
+		while (on) {
 			try {
-				while (true) {
-					String line = "";
-					while(true) {
-						line = socketIn.readLine();
-						if (line.contains("\0")){
-							line = line.replace("\0", "");
-							System.out.println(line);
-							break;
-						}
-						if(line.equals("QUIT")) {
-							return;
-						}
-						System.out.println(line);
-					}
-					line = socketIn.readLine();
-					socketOut.println(line);
-					socketOut.flush();
-				}
-			}catch(IOException e) {
-				
+				response = socketIn.readLine();// reading response from socket
+				socketOut.println("Response is: " + response);
+			} catch (IOException e) {
+				e.getStackTrace();
 			}
+		}
+		try {
+			socketIn.close();
+			socketOut.close();
+		} catch (IOException e) {
+			e.getStackTrace();
+		}
 	}
 	
 	

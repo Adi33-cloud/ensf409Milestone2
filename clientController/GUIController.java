@@ -1,5 +1,7 @@
 package clientController;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -21,8 +23,12 @@ public class GUIController implements Runnable {
 	private int id;
 	private int section;
 	private String option;
+	private BufferedReader socketIn;
+	private PrintWriter socketOut;
 
-	public GUIController() {
+	public GUIController(BufferedReader in, PrintWriter out) {
+		socketIn = in;
+		socketOut = out;
 //		login= new LoginFrame();
 //		login.getLogin().addActionListener((ActionEvent a) -> {
 //			student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
@@ -41,7 +47,8 @@ public class GUIController implements Runnable {
 				option1.getTextArea().setText("The course you entered was "+ option1.getCourse() + " " + option1.getCourseId());
 				name= option1.getCourse();
 				id = Integer.parseInt(option1.getCourseId()); 
-				option="1";
+				setOption("1");
+				socketOut.println("1");
 			});
 			
 		});
@@ -58,7 +65,8 @@ public class GUIController implements Runnable {
 				name= option2.getCourse();
 				id= Integer.parseInt(option2.getCourseId());
 				section=Integer.parseInt(option2.getCourseSection());
-				option= "2";
+				setOption("2");
+				socketOut.println("2");
 			});
 		});
 		
@@ -72,7 +80,8 @@ public class GUIController implements Runnable {
 				option3.getTextArea().setText(option3.getCourse() +" "+ option3.getCourseId()+  " was removed");
 				id= Integer.parseInt(option3.getCourseId());
 				section= 0;
-				option="3";
+				setOption("3");
+				socketOut.println("3");
 			});
 		});
 		
@@ -82,7 +91,8 @@ public class GUIController implements Runnable {
 			name=null;
 			id=0;
 			section=0;
-			option="4";
+			setOption("4");
+			socketOut.println("4");
 		});
 		
 		main.getB5().addActionListener((ActionEvent e)->{
@@ -95,7 +105,8 @@ public class GUIController implements Runnable {
 				name=null;
 				id= Integer.parseInt(option5.getId());
 				section=0;
-				option="5";
+				setOption("5");
+				socketOut.println("5");
 			});
 			
 
@@ -103,7 +114,8 @@ public class GUIController implements Runnable {
 		
 		main.getB6().addActionListener((ActionEvent e)->{
 			System.exit(0);
-			option="6";
+			setOption("6");
+			socketOut.println("6");
 		});
 		
 	}
@@ -122,6 +134,21 @@ public class GUIController implements Runnable {
 		});
 	}
 
+	public String getOption() {
+		return option;
+	}
+
+	public void setOption(String option) {
+		this.option = option;
+	}
+	
+	public PrintWriter getSocketOut() {
+		return socketOut;
+	}
+
+	public void setSocketOut(PrintWriter socketOut) {
+		socketOut = socketOut;
+	}
 	
 }
 

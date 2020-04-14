@@ -8,10 +8,14 @@ public class DBController {
 	private Student student;
 	private String output;
 	
-	public DBController(String studentName,int StudentId) {
+	public DBController(String studentName,int StudentId, ServerCom serverCom) {
 		cat= new CourseCatalogue();
 		student= new Student(studentName,StudentId);
-		//output=selection();
+		this.serverCom = serverCom;
+	}
+	
+	public void update() {
+		setOutput(selection());
 	}
 	
 	public String selection() {
@@ -63,6 +67,14 @@ public class DBController {
 	
 	public String printStudentCourses() {
 		return student.printCourses();
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
 	}
 }
 
