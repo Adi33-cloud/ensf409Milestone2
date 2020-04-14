@@ -24,15 +24,16 @@ public class ClientCom {
 			System.err.println(e.getStackTrace());
 		}
 	}
-	
+
 	public void communicate() {
 		theGUI.run();
 		String response = "";
+		String append;
 		boolean on = true;
 		while (on) {
 			try {
-				response = socketIn.readLine();// reading response from socket
-				socketOut.println("Response is: " + response);
+				while((response = socketIn.readLine()) != null)
+					theGUI.display(response);
 			} catch (IOException e) {
 				e.getStackTrace();
 			}

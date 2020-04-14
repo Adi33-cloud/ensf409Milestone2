@@ -1,6 +1,7 @@
 package clientController;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
@@ -48,7 +49,7 @@ public class GUIController implements Runnable {
 				name= option1.getCourse();
 				id = Integer.parseInt(option1.getCourseId()); 
 				setOption("1");
-				socketOut.println("1");
+				socketOut.println("1" + ";" + name + ";" + id);
 			});
 			
 		});
@@ -66,7 +67,7 @@ public class GUIController implements Runnable {
 				id= Integer.parseInt(option2.getCourseId());
 				section=Integer.parseInt(option2.getCourseSection());
 				setOption("2");
-				socketOut.println("2");
+				socketOut.println("2;" + name + ";" + id +";"+section);
 			});
 		});
 		
@@ -80,8 +81,9 @@ public class GUIController implements Runnable {
 				option3.getTextArea().setText(option3.getCourse() +" "+ option3.getCourseId()+  " was removed");
 				id= Integer.parseInt(option3.getCourseId());
 				section= 0;
+				name= option3.getCourse();
 				setOption("3");
-				socketOut.println("3");
+				socketOut.println("3;" + name + ";" + id +";"+section);
 			});
 		});
 		
@@ -106,7 +108,7 @@ public class GUIController implements Runnable {
 				id= Integer.parseInt(option5.getId());
 				section=0;
 				setOption("5");
-				socketOut.println("5");
+				socketOut.println("5;" + id);
 			});
 			
 
@@ -118,6 +120,33 @@ public class GUIController implements Runnable {
 			socketOut.println("6");
 		});
 		
+	}
+	
+	public void display(String theData) {
+		switch(Integer.parseInt(option)) {
+		case 1:
+			option1.getTextArea().setText(theData);
+			break;
+		case 2:
+			option2.getTextArea().setText(theData);
+			break;
+		case 3:
+			option3.getTextArea().setText(theData);
+			break;
+		case 4:
+			//option4.getTextArea().setText("hi vanessa");
+			option4.getTextArea().append(theData + "\n");
+			System.out.println(theData.length());
+			break;
+		case 5:
+			option5.getTextArea().setText(theData);
+			break;
+		case 6:
+			
+		default:
+			System.out.println("oops");
+			
+		}
 	}
 	
 //	public static void main(String[] args) {
@@ -147,7 +176,7 @@ public class GUIController implements Runnable {
 	}
 
 	public void setSocketOut(PrintWriter socketOut) {
-		socketOut = socketOut;
+		this.socketOut = socketOut;
 	}
 	
 }
