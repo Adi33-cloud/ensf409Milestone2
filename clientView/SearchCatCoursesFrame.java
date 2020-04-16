@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,28 +32,23 @@ public class SearchCatCoursesFrame extends JFrame {
 		label = new JLabel("Please enter the Course name: ");
 		label2 = new JLabel("Please enter the Course Id: ");
 		userInput = new JTextField(20);
-		userInputCourseId= new JTextField(20);
-		textArea= new JTextArea(1,50);
+		setUserInputCourseId(new JTextField(20));
+		setTextArea(new JTextArea(1,50));
 		inputPanel.setLayout(new FlowLayout());
 		
 		inputPanel.add(label);
 		inputPanel.add(userInput);
 		inputPanel.add(label2);
-		inputPanel.add(userInputCourseId);
-		inputPanel.add(textArea);
+		inputPanel.add(getUserInputCourseId());
+		inputPanel.add(getTextArea());
 		inputFrame.add(inputPanel);
 		
 		inputFrame.pack();
 		userInput.setVisible(true);
-		userInputCourseId.setVisible(true);
+		getUserInputCourseId().setVisible(true);
 		inputFrame.setVisible(true);
 		
-		userInput.addActionListener((ActionEvent a) -> {
-			course=userInput.getText();
-			courseId= userInputCourseId.getText();
-			textArea.setText("The course you entered was "+ course + " " + courseId);
-			
-});
+		
 
 
 	}
@@ -63,6 +59,34 @@ public class SearchCatCoursesFrame extends JFrame {
 	
 	public String getCourseId() {
 		return courseId;
+	}
+
+	public JTextField getuserInput() {
+		return userInput;
+	}
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
+	}
+
+	public JTextField getUserInputCourseId() {
+		return userInputCourseId;
+	}
+
+	public void setUserInputCourseId(JTextField userInputCourseId) {
+		this.userInputCourseId = userInputCourseId;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
 	}
 
 }

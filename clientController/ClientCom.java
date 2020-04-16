@@ -24,7 +24,28 @@ public class ClientCom {
 	}
 	
 	public void communicate() {
-		
+			try {
+				while (true) {
+					String line = "";
+					while(true) {
+						line = socketIn.readLine();
+						if (line.contains("\0")){
+							line = line.replace("\0", "");
+							System.out.println(line);
+							break;
+						}
+						if(line.equals("QUIT")) {
+							return;
+						}
+						System.out.println(line);
+					}
+					line = socketIn.readLine();
+					socketOut.println(line);
+					socketOut.flush();
+				}
+			}catch(IOException e) {
+				
+			}
 	}
 	
 	

@@ -2,6 +2,7 @@ package clientView;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,6 +16,7 @@ public class RemoveCourseFrame {
 	private JPanel inputPanel;
 	private JLabel label;
 	private JLabel label2;
+	private JButton removeButton;
 	private JTextField userInput;
 	private JTextField userInputCourseId;
 	private JTextArea textArea;
@@ -28,11 +30,13 @@ public class RemoveCourseFrame {
 		label2= new JLabel("Please enter the Course ID number");
 		userInputCourseId= new JTextField(10);
 		textArea= new JTextArea(1,30);
+		removeButton = new JButton("REMOVE");
 		
 		inputPanel.add(label);
 		inputPanel.add(userInput);
 		inputPanel.add(label2);
 		inputPanel.add(userInputCourseId);
+		inputPanel.add(removeButton);
 		inputPanel.add(textArea);
 		inputFrame.add(inputPanel);
 		
@@ -41,15 +45,87 @@ public class RemoveCourseFrame {
 		userInputCourseId.setVisible(true);
 		inputFrame.setVisible(true);
 		
-		userInput.addActionListener((ActionEvent a) -> {
-			course= userInput.getText();
-			courseId= userInputCourseId.getText();
-			textArea.setText(course +" "+ courseId+  " was removed");
-			
-});
+//		userInput.addActionListener((ActionEvent a) -> {
+//			course= userInput.getText();
+//			courseId= userInputCourseId.getText();
+//			textArea.setText(course +" "+ courseId+  " was removed");
+//			
+//		});
 
 
 }
+
+	public JFrame getInputFrame() {
+		return inputFrame;
+	}
+
+	public void setInputFrame(JFrame inputFrame) {
+		this.inputFrame = inputFrame;
+	}
+
+	public JPanel getInputPanel() {
+		return inputPanel;
+	}
+
+	public void setInputPanel(JPanel inputPanel) {
+		this.inputPanel = inputPanel;
+	}
+
+	public JLabel getLabel() {
+		return label;
+	}
+
+	public void setLabel(JLabel label) {
+		this.label = label;
+	}
+
+	public JLabel getLabel2() {
+		return label2;
+	}
+
+	public void setLabel2(JLabel label2) {
+		this.label2 = label2;
+	}
+
+	public JButton getRemoveButton() {
+		return removeButton;
+	}
+
+	public void setRemoveButton(JButton removeButton) {
+		this.removeButton = removeButton;
+	}
+
+	public JTextField getUserInput() {
+		return userInput;
+	}
+
+	public void setUserInput(JTextField userInput) {
+		this.userInput = userInput;
+	}
+
+	public JTextField getUserInputCourseId() {
+		return userInputCourseId;
+	}
+
+	public void setUserInputCourseId(JTextField userInputCourseId) {
+		this.userInputCourseId = userInputCourseId;
+	}
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
+	}
 
 	public String getCourse() {
 		return course;

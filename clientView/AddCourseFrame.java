@@ -2,6 +2,7 @@ package clientView;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ public class AddCourseFrame extends JFrame {
 		private JLabel label;
 		private JLabel label2;
 		private JLabel label3;
+		private JButton addButton;
 		private JTextField userInputCourse;
 		private JTextField userInputCourseId;
 		private JTextField userInputCourseSection;
@@ -29,6 +31,7 @@ public class AddCourseFrame extends JFrame {
 			label = new JLabel("Please enter the Course you want to add: ");
 			label2= new JLabel("Please enter the Course number");
 			label3= new JLabel("Please enter the Course section you want to add");
+			addButton = new JButton("ADD");
 			userInputCourse = new JTextField(20);
 			userInputCourseId= new JTextField(20);
 			userInputCourseSection= new JTextField(20);
@@ -40,6 +43,7 @@ public class AddCourseFrame extends JFrame {
 			inputPanel.add(userInputCourseId);
 			inputPanel.add(label3);
 			inputPanel.add(userInputCourseSection);
+			inputPanel.add(addButton);
 			inputPanel.add(textArea);
 			inputFrame.add(inputPanel);
 			
@@ -49,16 +53,100 @@ public class AddCourseFrame extends JFrame {
 			userInputCourseSection.setVisible(true);
 			inputFrame.setVisible(true);
 			
-			userInputCourse.addActionListener((ActionEvent a) -> {
-				course=userInputCourse.getText();
-				courseId = userInputCourseId.getText();
-				courseSection= userInputCourseSection.getText();
-				
-				textArea.setText(course +" "+ courseId+" section "+ courseSection+  " was added");
-	});
+//			userInputCourse.addActionListener((ActionEvent a) -> {
+//				course=userInputCourse.getText();
+//				courseId = userInputCourseId.getText();
+//				courseSection= userInputCourseSection.getText();
+//				
+//				textArea.setText(course +" "+ courseId+" section "+ courseSection+  " was added");
+//			});
 
 
 	}
+
+		public JFrame getInputFrame() {
+			return inputFrame;
+		}
+
+		public void setInputFrame(JFrame inputFrame) {
+			this.inputFrame = inputFrame;
+		}
+
+		public JPanel getInputPanel() {
+			return inputPanel;
+		}
+
+		public void setInputPanel(JPanel inputPanel) {
+			this.inputPanel = inputPanel;
+		}
+
+		public JLabel getLabel() {
+			return label;
+		}
+
+		public void setLabel(JLabel label) {
+			this.label = label;
+		}
+
+		public JLabel getLabel2() {
+			return label2;
+		}
+
+		public void setLabel2(JLabel label2) {
+			this.label2 = label2;
+		}
+
+		public JLabel getLabel3() {
+			return label3;
+		}
+
+		public void setLabel3(JLabel label3) {
+			this.label3 = label3;
+		}
+
+		public JTextField getUserInputCourse() {
+			return userInputCourse;
+		}
+
+		public void setUserInputCourse(JTextField userInputCourse) {
+			this.userInputCourse = userInputCourse;
+		}
+
+		public JTextField getUserInputCourseId() {
+			return userInputCourseId;
+		}
+
+		public void setUserInputCourseId(JTextField userInputCourseId) {
+			this.userInputCourseId = userInputCourseId;
+		}
+
+		public JTextField getUserInputCourseSection() {
+			return userInputCourseSection;
+		}
+
+		public void setUserInputCourseSection(JTextField userInputCourseSection) {
+			this.userInputCourseSection = userInputCourseSection;
+		}
+
+		public JTextArea getTextArea() {
+			return textArea;
+		}
+
+		public void setTextArea(JTextArea textArea) {
+			this.textArea = textArea;
+		}
+
+		public void setCourse(String course) {
+			this.course = course;
+		}
+
+		public void setCourseId(String courseId) {
+			this.courseId = courseId;
+		}
+
+		public void setCourseSection(String courseSection) {
+			this.courseSection = courseSection;
+		}
 
 		public String getCourse() {
 			return course;
@@ -70,6 +158,14 @@ public class AddCourseFrame extends JFrame {
 		
 		public String getCourseSection() {
 			return courseSection;
+		}
+
+		public JButton getAddButton() {
+			return addButton;
+		}
+
+		public void setAddButton(JButton addButton) {
+			this.addButton = addButton;
 		}
 
 		
