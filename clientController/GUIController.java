@@ -10,6 +10,13 @@ import javax.swing.JTextField;
 import clientModel.Student;
 import clientView.*;
 
+/**
+ * 
+ * @author Logan Boras, Aditya Raj, Vanessa Chen
+ * 
+ * The purpose of this class is to implement a GUI for the user, in order for
+ * the user to be able to navigate the apllication easily.
+ */
 public class GUIController implements Runnable {
 	private ClientCom clientCom; // confused as to hoe to use this to send info to the server. 
 	private Student student;
@@ -26,7 +33,12 @@ public class GUIController implements Runnable {
 	private String option;
 	private BufferedReader socketIn;
 	private PrintWriter socketOut;
-
+	
+	/**
+	 * 
+	 * @param in the input reader to be initialized
+	 * @param out the output writer to be initialized
+	 */
 	public GUIController(BufferedReader in, PrintWriter out) {
 		socketIn = in;
 		socketOut = out;
@@ -37,6 +49,10 @@ public class GUIController implements Runnable {
 //		});
 	}
 	
+	/**
+	 * Initialization function,creates different buttons and panes and opens the GUI
+	 * for the user.
+	 */
 	private void initialize() {
 		main = new MainFrame();
 		main.getB1().addActionListener((ActionEvent e)->{
@@ -122,6 +138,11 @@ public class GUIController implements Runnable {
 		
 	}
 	
+	/**
+	 * 
+	 * @param theData a display function that is implemented differently depending on the button 
+	 * pressed by the user.
+	 */
 	public void display(String theData) {
 		switch(Integer.parseInt(option)) {
 		case 1:
@@ -152,7 +173,10 @@ public class GUIController implements Runnable {
 //	public static void main(String[] args) {
 //		new GUIController();
 //	}
-
+	
+	/**
+	 * Driver function for the program
+	 */
 	@Override
 	public void run() {
 		//new GUIController();

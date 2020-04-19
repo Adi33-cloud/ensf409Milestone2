@@ -17,11 +17,11 @@ public class Course {
 	}
 
 	public void addOffering(CourseOffering offering) {
-		if (offering != null && offering.getTheCourse() == null) {
-			offering.setTheCourse(this);
+		if (offering != null /*&& offering.getTheCourse() == null*/) {
+//			offering.setTheCourse(this);
 			if (!offering.getTheCourse().getCourseName().equals(courseName)
 					|| offering.getTheCourse().getCourseNum() != courseNum) {
-				System.err.println("Error! This section belongs to another course!");
+//				System.err.println("Error! This section belongs to another course!");
 				return;
 			}
 			

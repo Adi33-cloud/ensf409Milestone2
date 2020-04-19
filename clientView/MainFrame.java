@@ -10,7 +10,14 @@ import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 
 
-
+/**
+ * 
+ * @author Vanessa Chen, Aditya Raj, Logan Boras
+ * @version 1.0
+ * 
+ * A main JFrame for the GUI application. 
+ * It implements multiple buttons to present options to the user
+ */
 public class MainFrame extends JFrame {
 
 	/**
@@ -20,6 +27,9 @@ public class MainFrame extends JFrame {
 	private JButton b1,b2,b3,b4,b5,b6; //buttons for the GUI
 	private BufferedReader scan; 
 	
+	/**
+	 * Constructor class that creates the frame and adds buttons
+	 */
 	public MainFrame() {
 		
 		b1= new JButton("Search catalogue courses");
