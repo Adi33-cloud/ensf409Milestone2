@@ -10,6 +10,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Aditya Raj, Vanessa Chen, Logan Boras
+ * @version 1.0
+ * 
+ * A class to display the option of viewing all of the courses in a student's list
+ *
+ */
 public class ViewStudentCoursesFrame {
 	private JFrame inputFrame;
 	private JPanel inputPanel;
@@ -20,6 +28,9 @@ public class ViewStudentCoursesFrame {
 	private JTextArea textArea;
 	private String id;
 	
+	/**
+	 * Constructor class to initialize the GUI frame and display it
+	 */
 	public ViewStudentCoursesFrame() {
 		inputFrame= new JFrame("Student Courses");
 		inputPanel = new JPanel();
@@ -53,7 +64,8 @@ public class ViewStudentCoursesFrame {
 
 
 }
-
+	
+	//Getters and setters
 	public String getId() {
 		return id;
 	}

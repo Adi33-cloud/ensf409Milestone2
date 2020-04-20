@@ -9,6 +9,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Vanessa Chen, Aditya Raj, Logan Boras
+ * @version 1.0
+ * 
+ * A class to display the adding course screen for the user
+ *
+ */
 public class AddCourseFrame extends JFrame {
 		private String course;
 		private String courseId;
@@ -24,6 +32,9 @@ public class AddCourseFrame extends JFrame {
 		private JTextField userInputCourseSection;
 		private JTextArea textArea;
 		
+		/**
+		 * constructor method for the class, initializes GUI frame and displays it
+		 */
 		public AddCourseFrame() {
 			
 			inputFrame= new JFrame("Add Course To Student Courses");
@@ -63,7 +74,7 @@ public class AddCourseFrame extends JFrame {
 
 
 	}
-
+		//getters and setters
 		public JFrame getInputFrame() {
 			return inputFrame;
 		}

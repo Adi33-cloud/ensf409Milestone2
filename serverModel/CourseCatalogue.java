@@ -13,8 +13,8 @@ private ArrayList <CourseOffering> offeringList;
 	private void loadFromDataBase() {
 		// TODO Auto-generated method stub
 		DBManager db = new DBManager();
-		setCourseList(db.readFromDataBase());
-		offeringList = db.offeringList;
+//		setCourseList(db.readFromDataBase());
+//		offeringList = db.offeringList;
 	}
 	
 	public ArrayList<CourseOffering> getOfferingList() {
@@ -27,7 +27,7 @@ private ArrayList <CourseOffering> offeringList;
 
 	public void createCourseOffering (Course c, int secNum, int secCap) {
 		if (c!= null) {
-			CourseOffering theOffering = new CourseOffering (secNum, secCap);
+			CourseOffering theOffering = new CourseOffering (secNum, secCap, c.getCourseId());
 			c.addOffering(theOffering);
 		}
 	}

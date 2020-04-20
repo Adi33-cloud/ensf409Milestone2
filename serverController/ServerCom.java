@@ -25,6 +25,7 @@ public class ServerCom {
 	private Socket aSocket;
 	private BufferedReader socketIn;
 	private PrintWriter socketOut;
+	private int sqlId;
 	
 	
 	public ServerCom (int portNumber) {
@@ -33,7 +34,6 @@ public class ServerCom {
 			//aSocket = new Socket();
 			System.out.println("Waiting to begin...");
 			//aSocket = serverSocket.accept();
-			System.out.println("Connection accepted.");
 			pool= Executors.newCachedThreadPool();
 			//socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 			//socketOut = new PrintWriter(aSocket.getOutputStream(), true);
@@ -83,6 +83,7 @@ public class ServerCom {
 			courseName = words[1];
 			courseId = Integer.parseInt(words[2]);
 			setSection(Integer.parseInt(words[3]));
+			setSqlId(Integer.parseInt(words[0]));
 			break;
 		case 3:
 			courseName = words[1];
@@ -113,7 +114,6 @@ public class ServerCom {
 				socketOut = new PrintWriter(aSocket.getOutputStream(), true);
 				DBController theDB = new DBController("Logan", 101, this, socketIn, socketOut);
 				pool.execute(theDB);
-				System.out.println("in run server");
 				}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -128,6 +128,11 @@ public class ServerCom {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void setSqlId(int id) {
+		this.sqlId = id;
+		
 	}
 
 	public static void main(String[] args) throws IOException{
@@ -170,6 +175,10 @@ public class ServerCom {
 
 	public void setSection(int section) {
 		this.section = section;
+	}
+
+	public int getsqlId() {
+		return sqlId;
 	}
 
 	

@@ -1,10 +1,21 @@
 package serverModel;
 
+import clientModel.Student;
+
+/**
+ * 
+ * @author Vanessa CHen, Aditya Raj, Logan Boras
+ * Class to hold a students registration data
+ */
 public class Registration {
 	private Student theStudent;
 	private CourseOffering theOffering;
 	private char grade;
 	
+	public Registration(Student s, CourseOffering o) {
+		this.theStudent = s;
+		this.theOffering = o;
+	}
 	void completeRegistration (Student st, CourseOffering of) {
 		theStudent = st;
 		theOffering = of;
@@ -43,8 +54,8 @@ public class Registration {
 	@Override
 	public String toString () {
 		String st = "\n";
-		st += "Student Name: " + getTheStudent() + "\n";
-		st += "The Offering: " + getTheOffering () + "\n";
+		st += "Student Name: " + getTheStudent().getStudentName() + "\n";
+		st += "The Offering: " + getTheOffering().getTheCourse().getCourseName() + "\n";
 		st += "Grade: " + getGrade();
 		st += "\n-----------\n";
 		return st;

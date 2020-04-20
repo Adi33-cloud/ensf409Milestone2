@@ -2,26 +2,45 @@ package serverModel;
 
 import java.util.ArrayList;
 
+import clientModel.Student;
+
+/**
+ * 
+ * @author Logan Boras, Aditya Raj, Vanessa CHen
+ * 
+ * Data class for a students course
+ */
 public class Course {
 	private String courseName;
 	private int courseNum;
 	private ArrayList<Course> preReq;
 	private ArrayList<CourseOffering> offeringList;
-
-	public Course(String courseName, int courseNum) {
+	private int courseId;
+	
+	/**
+	 * constructor class for the course
+	 * @param courseName name of the course (e.g. ENSF) 
+	 * @param courseNum course number
+	 */
+	public Course(String courseName, int courseNum, int id) {
 		this.setCourseName(courseName);
 		this.setCourseNum(courseNum);
+		this.courseId=id;
 		// Both of the following are only association
 		preReq = new ArrayList<Course>();
 		offeringList = new ArrayList<CourseOffering>();
 	}
-
+	
+	/**
+	 * adds a course offering to the course
+	 * @param offering offering to be added
+	 */
 	public void addOffering(CourseOffering offering) {
-		if (offering != null && offering.getTheCourse() == null) {
-			offering.setTheCourse(this);
+		if (offering != null /*&& offering.getTheCourse() == null*/) {
+//			offering.setTheCourse(this);
 			if (!offering.getTheCourse().getCourseName().equals(courseName)
 					|| offering.getTheCourse().getCourseNum() != courseNum) {
-				System.err.println("Error! This section belongs to another course!");
+//				System.err.println("Error! This section belongs to another course!");
 				return;
 			}
 			
@@ -107,4 +126,14 @@ public class Course {
 	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
 		this.offeringList = offeringList;
 	}
+	
+	public int getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(int id) {
+		courseId=id; 
+	}
+	
+	
+	
 }

@@ -14,7 +14,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-
+/**
+ * 
+ * @author Logan Boras, Vanessa Chen, Aditya Raj
+ * @version 1.0
+ * A class to display the option to search the course catalog to the user.
+ *
+ */
 public class SearchCatCoursesFrame extends JFrame {
 	private String course;
 	private String courseId;
@@ -26,6 +32,9 @@ public class SearchCatCoursesFrame extends JFrame {
 	private JTextField userInputCourseId;
 	private JTextArea textArea;
 	
+	/**
+	 * Constructor class to initialize the GUI frame and display it
+	 */
 	public SearchCatCoursesFrame() {
 		
 		inputFrame= new JFrame("Search Course Catalouge");
@@ -53,11 +62,9 @@ public class SearchCatCoursesFrame extends JFrame {
 		getUserInputCourseId().setVisible(true);
 		inputFrame.setVisible(true);
 		
-		
-
-
 	}
-
+	
+	// Getters and setters
 	public String getCourse() {
 		return course;
 	}

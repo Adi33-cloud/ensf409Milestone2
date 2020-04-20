@@ -3,19 +3,42 @@ package clientModel;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import serverModel.CourseOffering;
+import serverModel.Registration;
 
-
+/**
+ * 
+ * @author Logan Boras, Aditya Raj, Vanessa Chen
+ * class to contain the data of a student
+ */
 public class Student {
 	private String studentName;
 	private int studentId;
 	private ArrayList<CourseOffering> offeringList;
 	private ArrayList<Registration> studentRegList;
 	
+	/**
+	 * constructor class for the student
+	 * @param studentName name of the student
+	 * @param studentId the student's ID number
+	 */
 	public Student (String studentName, int studentId) {
 		this.setStudentName(studentName);
 		this.setStudentId(studentId);
 		offeringList = new ArrayList<CourseOffering>();
 		studentRegList = new ArrayList<Registration>();
+	}
+
+	public ArrayList<Registration> getStudentRegList() {
+		return studentRegList;
+	}
+
+	public void setStudentRegList(ArrayList<Registration> studentRegList) {
+		this.studentRegList = studentRegList;
+	}
+
+	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
+		this.offeringList = offeringList;
 	}
 
 	public String getStudentName() {
@@ -42,6 +65,8 @@ public class Student {
 	public String toString () {
 		String st = "Student Name: " + getStudentName() + "\n" +
 				"Student Id: " + getStudentId() + "\n\n";
+		for(Registration theReg: studentRegList)
+			st += theReg.toString();
 		return st;
 	}
 
@@ -71,6 +96,12 @@ public class Student {
 		return null;
 	}
 	
+	/**
+	 * Searches and returns a course registration from the students list
+	 * @param name name of the registered course
+	 * @param num course number
+	 * @return returns course registration
+	 */
 	public Registration searchRegistration(String name, int num) {
 		for(Registration reg : studentRegList) {
 			if(reg.getTheOffering().getTheCourse().getCourseName().contentEquals(name) && 
@@ -80,6 +111,10 @@ public class Student {
 		return null;
 	}
 	
+	/**
+	 * converts the course data into a string to be printed
+	 * @return the string to be printed
+	 */
 	public String printCourses() {
 		String st= "";
 		if(offeringList.size() == 0)
@@ -90,33 +125,42 @@ public class Student {
 		return st;
 	}
 	
-	/*public void addCourse(Course c) {
-		if(c.getClassSize() == false)
-			System.out.println("\n"+c.getCourseName()+" "+c.getCourseNum()+" is not available due to low enrolment.");
-		else {
-			@SuppressWarnings("resource")
-			Scanner scan = new Scanner(System.in);
-			Registration reg = new Registration();
-			if(c.checkPreReq(this) == false)
-				System.out.println("\nYou do not have the necessary prerequisites for this course!\n");
-			else{
-				System.out.println(c);
-				System.out.print("Please Select a Section: ");
-				int i = scan.nextInt();
-				if(c.getCourseOfferingAt(i-1) == null)
-					System.out.println("/nSection not found.");
-				else {
-					reg.completeRegistration(this, c.getCourseOfferingAt(i-1));
-					c.getCourseOfferingAt(i-1).addRegistration(reg);
-					c.getCourseOfferingAt(i-1).addStudent(this);
-					this.addCourseOffering(c.getCourseOfferingAt(i-1));
-					System.out.println("Course Succussfully added.");
-				}
-			}
+	public String addCourse(String name, int num, int section, int courseId) {
+//		if(c.getClassSize() == false)
+//			System.out.println("\n"+c.getCourseName()+" "+c.getCourseNum()+" is not available due to low enrolment.");
+//		else {
+//			@SuppressWarnings("resource")
+//			Scanner scan = new Scanner(System.in);
+//			Registration reg = new Registration();
+//			if(c.checkPreReq(this) == false)
+//				System.out.println("\nYou do not have the necessary prerequisites for this course!\n");
+//			else{
+//				System.out.println(c);
+//				System.out.print("Please Select a Section: ");
+//				int i = scan.nextInt();
+//				if(c.getCourseOfferingAt(i-1) == null)
+//					System.out.println("/nSection not found.");
+//				else {
+//					reg.completeRegistration(this, c.getCourseOfferingAt(i-1));
+//					c.getCourseOfferingAt(i-1).addRegistration(reg);
+//					c.getCourseOfferingAt(i-1).addStudent(this);
+//					this.addCourseOffering(c.getCourseOfferingAt(i-1));
+//					System.out.println("Course Succussfully added.");
+//				}
+//			}
+//		}
+		CourseOffering c = this.searchCourse(name, num);
+		if(c == null) {
+			c = new CourseOffering(num, section, courseId);
+			offeringList.add(c);
+			return "\nCourse Successfully added.";
 		}
-	}*/
+		else {
+			return "\nYou are already enrolled in this course.";
+		}
+	}
 	
-	/*public String removeCourse(String name, int num) {
+	public String removeCourse(String name, int num) {
 		
 		CourseOffering c = this.searchCourse(name, num);
 		if(c == null) {
@@ -130,13 +174,12 @@ public class Student {
 			c.removeStudent(this);
 			return "\nCourse Successfully removed.";
 		}
-	}*/
+	}
 	
 	public boolean checkCourseAmount() {
 		if(offeringList.size() < 6)
 			return true;
 		return false;
 	}
-
 
 }

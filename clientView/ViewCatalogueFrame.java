@@ -9,13 +9,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Aditya Raj, Vanessa Chen, Logan Boras
+ * @version 1.0
+ * 
+ * A class to display the option of viewing all of the courses in the database
+ *
+ */
 public class ViewCatalogueFrame {
 	private JFrame inputFrame;
 	private JPanel inputPanel;
 	private JTextArea textArea;
 	private JScrollPane scrollPane;
 
-
+	
+	/**
+	 * Constructor class to initialize the GUI frame and display it
+	 */
 	public ViewCatalogueFrame() {
 		
 		inputFrame= new JFrame("View All courses in catalogue");
@@ -33,6 +44,7 @@ public class ViewCatalogueFrame {
 
 	}
 	
+	// Getters and Setters
 	public JFrame getInputFrame() {
 		return inputFrame;
 	}
