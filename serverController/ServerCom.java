@@ -25,6 +25,7 @@ public class ServerCom {
 	private Socket aSocket;
 	private BufferedReader socketIn;
 	private PrintWriter socketOut;
+	private int sqlId;
 	
 	
 	public ServerCom (int portNumber) {
@@ -83,6 +84,7 @@ public class ServerCom {
 			courseName = words[1];
 			courseId = Integer.parseInt(words[2]);
 			setSection(Integer.parseInt(words[3]));
+			setSqlId(Integer.parseInt(words[0]));
 			break;
 		case 3:
 			courseName = words[1];
@@ -101,6 +103,11 @@ public class ServerCom {
 		default:
 			System.out.println("oops");
 		}
+		
+	}
+
+	private void setSqlId(int id) {
+		this.sqlId = id;
 		
 	}
 
@@ -143,6 +150,10 @@ public class ServerCom {
 
 	public void setSection(int section) {
 		this.section = section;
+	}
+
+	public int getsqlId() {
+		return sqlId;
 	}
 
 	

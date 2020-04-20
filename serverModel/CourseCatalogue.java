@@ -27,7 +27,7 @@ private ArrayList <CourseOffering> offeringList;
 
 	public void createCourseOffering (Course c, int secNum, int secCap) {
 		if (c!= null) {
-			CourseOffering theOffering = new CourseOffering (secNum, secCap);
+			CourseOffering theOffering = new CourseOffering (secNum, secCap, c.getCourseId());
 			c.addOffering(theOffering);
 		}
 	}

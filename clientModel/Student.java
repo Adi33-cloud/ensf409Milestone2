@@ -3,6 +3,8 @@ package clientModel;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import serverModel.CourseOffering;
+import serverModel.Registration;
 
 /**
  * 
@@ -26,15 +28,72 @@ public class Student {
 		offeringList = new ArrayList<CourseOffering>();
 		studentRegList = new ArrayList<Registration>();
 	}
+
+	public ArrayList<Registration> getStudentRegList() {
+		return studentRegList;
+	}
+
+	public void setStudentRegList(ArrayList<Registration> studentRegList) {
+		this.studentRegList = studentRegList;
+	}
+
+	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
+		this.offeringList = offeringList;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
 	
-	/**
-	 * converts class data into a string to be printed
-	 */
+	public ArrayList<CourseOffering> getOfferingList() {
+		return offeringList;
+	}
+	
 	@Override
 	public String toString () {
 		String st = "Student Name: " + getStudentName() + "\n" +
 				"Student Id: " + getStudentId() + "\n\n";
+		for(Registration theReg: studentRegList)
+			st += theReg.toString();
 		return st;
+	}
+
+	public void addRegistration(Registration registration) {
+		// TODO Auto-generated method stub
+		studentRegList.add(registration);
+	}
+	
+	public void removeRegistration(Registration registration) {
+		// TODO Auto-generated method stub
+		studentRegList.remove(registration);
+	}
+	
+	public void addCourseOffering(CourseOffering c) {
+		offeringList.add(c);
+	}
+	
+	public void removeCourseOffering(CourseOffering c) {
+		offeringList.remove(c);
+	}
+	
+	public CourseOffering searchCourse(String name, int num) {
+		for(CourseOffering c: offeringList) {
+			if(c.getTheCourse().getCourseName().contentEquals(name) && c.getTheCourse().getCourseNum() == num)
+				return c;
+		}
+		return null;
 	}
 	
 	/**
@@ -66,33 +125,42 @@ public class Student {
 		return st;
 	}
 	
-	/*public void addCourse(Course c) {
-		if(c.getClassSize() == false)
-			System.out.println("\n"+c.getCourseName()+" "+c.getCourseNum()+" is not available due to low enrolment.");
-		else {
-			@SuppressWarnings("resource")
-			Scanner scan = new Scanner(System.in);
-			Registration reg = new Registration();
-			if(c.checkPreReq(this) == false)
-				System.out.println("\nYou do not have the necessary prerequisites for this course!\n");
-			else{
-				System.out.println(c);
-				System.out.print("Please Select a Section: ");
-				int i = scan.nextInt();
-				if(c.getCourseOfferingAt(i-1) == null)
-					System.out.println("/nSection not found.");
-				else {
-					reg.completeRegistration(this, c.getCourseOfferingAt(i-1));
-					c.getCourseOfferingAt(i-1).addRegistration(reg);
-					c.getCourseOfferingAt(i-1).addStudent(this);
-					this.addCourseOffering(c.getCourseOfferingAt(i-1));
-					System.out.println("Course Succussfully added.");
-				}
-			}
+	public String addCourse(String name, int num, int section, int courseId) {
+//		if(c.getClassSize() == false)
+//			System.out.println("\n"+c.getCourseName()+" "+c.getCourseNum()+" is not available due to low enrolment.");
+//		else {
+//			@SuppressWarnings("resource")
+//			Scanner scan = new Scanner(System.in);
+//			Registration reg = new Registration();
+//			if(c.checkPreReq(this) == false)
+//				System.out.println("\nYou do not have the necessary prerequisites for this course!\n");
+//			else{
+//				System.out.println(c);
+//				System.out.print("Please Select a Section: ");
+//				int i = scan.nextInt();
+//				if(c.getCourseOfferingAt(i-1) == null)
+//					System.out.println("/nSection not found.");
+//				else {
+//					reg.completeRegistration(this, c.getCourseOfferingAt(i-1));
+//					c.getCourseOfferingAt(i-1).addRegistration(reg);
+//					c.getCourseOfferingAt(i-1).addStudent(this);
+//					this.addCourseOffering(c.getCourseOfferingAt(i-1));
+//					System.out.println("Course Succussfully added.");
+//				}
+//			}
+//		}
+		CourseOffering c = this.searchCourse(name, num);
+		if(c == null) {
+			c = new CourseOffering(num, section, courseId);
+			offeringList.add(c);
+			return "\nCourse Successfully added.";
 		}
-	}*/
+		else {
+			return "\nYou are already enrolled in this course.";
+		}
+	}
 	
-	/*public String removeCourse(String name, int num) {
+	public String removeCourse(String name, int num) {
 		
 		CourseOffering c = this.searchCourse(name, num);
 		if(c == null) {
@@ -106,27 +174,6 @@ public class Student {
 			c.removeStudent(this);
 			return "\nCourse Successfully removed.";
 		}
-	}*/
-	
-	//Getters and setters
-	public String getStudentName() {
-		return studentName;
-	}
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
-
-	public int getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
-	
-	public ArrayList<CourseOffering> getOfferingList() {
-		return offeringList;
 	}
 	
 	public boolean checkCourseAmount() {
@@ -134,32 +181,5 @@ public class Student {
 			return true;
 		return false;
 	}
-	
-	public void addRegistration(Registration registration) {
-		// TODO Auto-generated method stub
-		studentRegList.add(registration);
-	}
-	
-	public void removeRegistration(Registration registration) {
-		// TODO Auto-generated method stub
-		studentRegList.remove(registration);
-	}
-	
-	public void addCourseOffering(CourseOffering c) {
-		offeringList.add(c);
-	}
-	
-	public void removeCourseOffering(CourseOffering c) {
-		offeringList.remove(c);
-	}
-	
-	public CourseOffering searchCourse(String name, int num) {
-		for(CourseOffering c: offeringList) {
-			if(c.getTheCourse().getCourseName().contentEquals(name) && c.getTheCourse().getCourseNum() == num)
-				return c;
-		}
-		return null;
-	}
-
 
 }

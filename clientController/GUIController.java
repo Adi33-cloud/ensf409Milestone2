@@ -4,13 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-<<<<<<< HEAD
+
 import clientController.ClientCom;
-=======
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
->>>>>>> branch 'master' of https://github.com/Adi33-cloud/ensf409Milestone2.git
 import clientModel.Student;
 import clientView.*;
 
@@ -174,20 +173,7 @@ public class GUIController implements Runnable {
 		}
 	}
 	
-<<<<<<< HEAD
-	public static void main(String[] args) {
-	new GUIController();
-	}
 
-=======
-//	public static void main(String[] args) {
-//		new GUIController();
-//	}
-	
-	/**
-	 * Driver function for the program
-	 */
->>>>>>> branch 'master' of https://github.com/Adi33-cloud/ensf409Milestone2.git
 	@Override
 	public void run() {
 		//new GUIController();

@@ -2,13 +2,26 @@ package serverModel;
 
 import java.util.ArrayList;
 
+import clientModel.Student;
+
+/**
+ * 
+ * @author Logan Boras, Aditya Raj, Vanessa CHen
+ * 
+ * Data class for a students course
+ */
 public class Course {
 	private String courseName;
 	private int courseNum;
 	private ArrayList<Course> preReq;
 	private ArrayList<CourseOffering> offeringList;
 	private int courseId;
-
+	
+	/**
+	 * constructor class for the course
+	 * @param courseName name of the course (e.g. ENSF) 
+	 * @param courseNum course number
+	 */
 	public Course(String courseName, int courseNum, int id) {
 		this.setCourseName(courseName);
 		this.setCourseNum(courseNum);
@@ -17,7 +30,11 @@ public class Course {
 		preReq = new ArrayList<Course>();
 		offeringList = new ArrayList<CourseOffering>();
 	}
-
+	
+	/**
+	 * adds a course offering to the course
+	 * @param offering offering to be added
+	 */
 	public void addOffering(CourseOffering offering) {
 		if (offering != null /*&& offering.getTheCourse() == null*/) {
 //			offering.setTheCourse(this);

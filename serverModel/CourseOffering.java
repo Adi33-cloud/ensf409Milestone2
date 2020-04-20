@@ -2,6 +2,14 @@ package serverModel;
 
 import java.util.ArrayList;
 
+import clientModel.Student;
+
+
+/**
+ * 
+ * @author Aditya Raj, VAnessa CHen, Logan Boras
+ *
+ */
 public class CourseOffering {
 	private int secNum;
 	private int secCap;
@@ -11,7 +19,11 @@ public class CourseOffering {
 	private int offeringId;
 	
 
-
+	/**
+	 * COnstructor method for the class
+	 * @param secNum number of the section
+	 * @param secCap maximum amount of students allowed in the section
+	 */
 	public CourseOffering (int secNum, int secCap, int id) {
 		this.setSecNum(secNum);
 		this.setSecCap(secCap);
@@ -20,6 +32,7 @@ public class CourseOffering {
 		offeringRegList = new ArrayList <Registration>();
 	}
 	
+	//Getters and setters
 	public int getSecNum() {
 		return secNum;
 	}
@@ -51,7 +64,7 @@ public class CourseOffering {
 	@Override
 	public String toString () {
 		String st = "\n";
-//		st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNum() + "\n";
+		//st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNum() + "\n";
 		st += "Section Num: " + getSecNum() + ", section cap: "+ getSecCap() +"\n";
 		for(Student s: studentList)
 			st += s;

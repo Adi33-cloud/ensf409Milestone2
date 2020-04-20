@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import clientModel.CourseOffering;
 import clientModel.Student;
 
 import java.sql.*;
@@ -22,7 +21,9 @@ public class DBManager {
 	
 	ResultSet myStudentListRs;
 	ResultSet myCourseListRs;
+	ResultSet myCourseListResults;
 	ResultSet myCourseOfferingRs;
+	ResultSet myCourseOfferingResults;
 	
 	public DBManager() {
 		studentList= new ArrayList<Student>();
@@ -39,8 +40,9 @@ public class DBManager {
 	private void loadCourseList() {
 		// TODO Auto-generated method stub
 		try {
-			myCourseListRs= myStatCourse.executeQuery("select * from Course");
-			myCourseOfferingRs= myStatCourseOffering.executeQuery("select * from CourseOffering");
+			myCourseListRs = myStatCourse.executeQuery("select * from Course");
+			myCourseOfferingRs = myStatCourseOffering.executeQuery("select * from CourseOffering");
+
 			int i=-1;
 			
 			while(myCourseListRs.next()) {
@@ -50,7 +52,7 @@ public class DBManager {
 			while(myCourseOfferingRs.next()) {
 				courseOfferingList.add(new CourseOffering(myCourseOfferingRs.getInt("secnum"),myCourseOfferingRs.getInt("seccap"),myCourseOfferingRs.getInt("id")));
 				i+=1;
-				courseOfferingList.get(i).setTheCourse(new Course(myCourseOfferingRs.getString("name"),myCourseOfferingRs.getInt("number"),myCourseListRs.getInt("id")));
+				courseOfferingList.get(i).setTheCourse(new Course(myCourseOfferingRs.getString("name"),myCourseOfferingRs.getInt("number"),myCourseOfferingRs.getInt("id")));
 			}
 			
 			for(Course c: courseList) {
@@ -89,24 +91,26 @@ public class DBManager {
 		try {
 			myStudentListRs= myStat.executeQuery("select * from Student");
 		
-		
+		int i=0;
 		while(myStudentListRs.next()) {
 			studentList.add(new Student(myStudentListRs.getString("name"),myStudentListRs.getInt("id")));
-			
-		}
-		for(int i=0; i<studentList.size(); i++) {
+			k=0;
 			for(int j=0; j<6; j++) {
 				k+=1;
-				int courseId= myStudentListRs.getInt("course"+k);
-				if(courseId!=0 || courseId != -1) {
+				int courseId= myStudentListRs.getInt("course"+Integer.toString(k));
+				if(courseId!=0 && courseId != -1) {
 					for(CourseOffering o: courseOfferingList) {
-						if(courseId==o.getOfferingId());{
+						if(courseId == o.getOfferingId()){
+							System.out.println(courseId + " " + o.getOfferingId());
 							studentList.get(i).addCourseOffering(o);
+							studentList.get(i).addRegistration(new Registration(studentList.get(i), o));;
 						}
 					}
 				}
 			}
+			i++;
 		}
+		
 		for(Student s: studentList) {
 			System.out.println(s.toString());
 		}
@@ -136,13 +140,15 @@ public class DBManager {
 	}
 	
 	public void addCourse(Student s, Course c, int sec) {
-		s.addRegistration(new Registration());
-		for(CourseOffering theCourseOffering: courseOfferingList)
+		for(CourseOffering theCourseOffering: courseOfferingList) {
 			if(theCourseOffering.getTheCourse().getCourseName() == c.getCourseName() && theCourseOffering.getTheCourse().getCourseNum() == c.getCourseNum()
 			&& theCourseOffering.getSecNum() == sec) {
 				theCourseOffering.addStudent(s);
 				s.getOfferingList().add(theCourseOffering);
+				s.addRegistration(new Registration(s,theCourseOffering));
+				System.out.println("reg added!");
 			}
+		}
 		int offeringId = -1;
 		try {
 			while(myCourseOfferingRs.next()) {

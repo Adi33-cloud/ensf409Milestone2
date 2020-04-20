@@ -1,4 +1,5 @@
 package serverController;
+import clientModel.Student;
 import serverModel.*;
 
 
@@ -24,7 +25,7 @@ public class DBController {
 		case 1:
 			return searchCourse(serverCom.getCourseName(),serverCom.getCourseId());
 		case 2:
-			return addCourse(serverCom.getCourseName(),serverCom.getCourseId(),serverCom.getSection());
+			return addCourse(serverCom.getCourseName(),serverCom.getCourseId(),serverCom.getSection(),serverCom.getsqlId());
 		case 3:
 			return removeCourse(serverCom.getCourseName(),serverCom.getCourseId());
 		case 4:
@@ -39,9 +40,9 @@ public class DBController {
 	}
 	
 	
-	private String addCourse(String courseName, int courseId, int section) {
+	private String addCourse(String courseName, int courseId, int section, int sqlId) {
 		// TODO Auto-generated method stub
-		return student.addCourse(courseName, courseId, section);
+		return student.addCourse(courseName, courseId, section, sqlId);
 	}
 
 	public String searchCourse(String courseName, int courseNumber) {
