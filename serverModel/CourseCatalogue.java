@@ -13,8 +13,8 @@ private ArrayList <CourseOffering> offeringList;
 	private void loadFromDataBase() {
 		// TODO Auto-generated method stub
 		DBManager db = new DBManager();
-		setCourseList(db.readFromDataBase());
-		offeringList = db.offeringList;
+//		setCourseList(db.readFromDataBase());
+//		offeringList = db.offeringList;
 	}
 	
 	public ArrayList<CourseOffering> getOfferingList() {

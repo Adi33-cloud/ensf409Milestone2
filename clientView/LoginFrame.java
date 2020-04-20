@@ -8,6 +8,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Vanessa Chen, Aditya Raj, Logan Boras
+ * @version 1.0
+ * 
+ * A class to display the initial login screen of the GUI
+ *
+ */
 public class LoginFrame {
 	private String studentName;
 	private String studentId;
@@ -19,6 +27,9 @@ public class LoginFrame {
 	private JTextField userInputStudentId;
 	private JButton login;
 	
+	/**
+	 * constructor method for the class, initializes GUI frame and displays it
+	 */
 	public LoginFrame() {
 		login = new JButton("Login");
 		inputFrame= new JFrame("Add Course To Student Courses");
@@ -56,8 +67,9 @@ public class LoginFrame {
 		
 
 
-}
-
+	}
+	
+	//getters and setters
 	public JTextField getUserInputStudentName() {
 		return userInputStudentName;
 	}

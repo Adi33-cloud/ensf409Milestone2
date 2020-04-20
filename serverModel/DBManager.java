@@ -5,168 +5,211 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DBManager {
-	ArrayList <Course> courseList;
-	ArrayList <CourseOffering> offeringList;
-	ArrayList<Student> studentList;
-	private Scanner studentScan;
-	private Scanner courseScan;
+import clientModel.CourseOffering;
+import clientModel.Student;
 
-	public DBManager () {
-		courseList = new ArrayList<Course>();
-		studentList = new ArrayList<Student>();
-		offeringList = new ArrayList<CourseOffering>();
+import java.sql.*;
+
+public class DBManager {
+	private ArrayList<Student> studentList;
+	private ArrayList<Course> courseList;
+	private ArrayList<CourseOffering> courseOfferingList;
+	
+	Connection myConn;
+	Statement myStat;
+	Statement myStatCourse;
+	Statement myStatCourseOffering;
+	
+	ResultSet myStudentListRs;
+	ResultSet myCourseListRs;
+	ResultSet myCourseOfferingRs;
+	
+	public DBManager() {
+		studentList= new ArrayList<Student>();
+		courseList= new ArrayList<Course>();
+		courseOfferingList= new ArrayList<CourseOffering>();
+		
+		
+		connect();
+		loadCourseList();
+		loadStudentList();
+		
+	}
+
+	private void loadCourseList() {
+		// TODO Auto-generated method stub
 		try {
-			studentScan = new Scanner(new File("Students.txt"));
-			courseScan = new Scanner(new File("Courses.txt"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			myCourseListRs= myStatCourse.executeQuery("select * from Course");
+			myCourseOfferingRs= myStatCourseOffering.executeQuery("select * from CourseOffering");
+			int i=-1;
+			
+			while(myCourseListRs.next()) {
+				courseList.add(new Course(myCourseListRs.getString("name"),myCourseListRs.getInt("number"),myCourseListRs.getInt("id")));
+								
+			}
+			while(myCourseOfferingRs.next()) {
+				courseOfferingList.add(new CourseOffering(myCourseOfferingRs.getInt("secnum"),myCourseOfferingRs.getInt("seccap"),myCourseOfferingRs.getInt("id")));
+				i+=1;
+				courseOfferingList.get(i).setTheCourse(new Course(myCourseOfferingRs.getString("name"),myCourseOfferingRs.getInt("number"),myCourseListRs.getInt("id")));
+			}
+			
+			for(Course c: courseList) {
+				for(CourseOffering co: courseOfferingList) {
+					c.addOffering(co);
+				}
+			}
+			
+			//for(CourseOffering co: courseOfferingList) {
+			//	System.out.println(co.toString());
+			//}
+			
+			for(Course c: courseList) {
+				System.out.println(c.toString());
+			}
+			
+//			myCourseListRs.close();
+//			myCourseOfferingRs.close();
+			
+			
+
+		
+		
+		
+		
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+	}
+
+	private void loadStudentList() {
+		// TODO Auto-generated method stub
+		int k=0;
+		try {
+			myStudentListRs= myStat.executeQuery("select * from Student");
+		
+		
+		while(myStudentListRs.next()) {
+			studentList.add(new Student(myStudentListRs.getString("name"),myStudentListRs.getInt("id")));
+			
+		}
+		for(int i=0; i<studentList.size(); i++) {
+			for(int j=0; j<6; j++) {
+				k+=1;
+				int courseId= myStudentListRs.getInt("course"+k);
+				if(courseId!=0 || courseId != -1) {
+					for(CourseOffering o: courseOfferingList) {
+						if(courseId==o.getOfferingId());{
+							studentList.get(i).addCourseOffering(o);
+						}
+					}
+				}
+			}
+		}
+		for(Student s: studentList) {
+			System.out.println(s.toString());
+		}
+//		myStudentListRs.close();
+		
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+		
+	}
+
+	private void connect() {
+		// TODO Auto-generated method stub
+		try {
+			 myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/courseregistration?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","L40532734b?");
+			
+			 myStat= myConn.createStatement();
+			 myStatCourse= myConn.createStatement();
+			 myStatCourseOffering= myConn.createStatement();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
-
-	public ArrayList<Course> readFromDataBase() {
-		// TODO Auto-generated method stub
-//		Student s = new Student("Luke", 100);
-//		Student s1 = new Student("Logan", 101);
-//		Student s2 = new Student("Vanessa", 102);
-//		Student s3 = new Student("Caroline", 103);
-//		Student s4 = new Student("Vic", 104);
-//		Student s5 = new Student("Nicole", 105);
-//		Student s6 = new Student("Ibukun", 106);
-//		Student s7 = new Student("Ryan", 107);
-//		Student s8 = new Student("Brielle", 108);
-//		Student s9 = new Student("Ethan", 109);
-//		courseList.add(new Course ("ENGG", 233));
-//		courseList.get(0).addOffering(new CourseOffering(1, 100));
-//		courseList.get(0).addOffering(new CourseOffering(2, 100));
-//		courseList.get(0).addOffering(new CourseOffering(3, 100));
-//		courseList.get(0).addOffering(new CourseOffering(4, 100));	
-//		courseList.get(0).getCourseOfferingAt(0).addStudent(s);
-//		courseList.get(0).getCourseOfferingAt(0).addStudent(s1);
-//		courseList.get(0).getCourseOfferingAt(1).addStudent(s2);
-//		courseList.get(0).getCourseOfferingAt(1).addStudent(s3);
-//		courseList.get(0).getCourseOfferingAt(2).addStudent(s4);
-//		courseList.get(0).getCourseOfferingAt(2).addStudent(s5);
-//		courseList.get(0).getCourseOfferingAt(3).addStudent(s6);
-//		courseList.get(0).getCourseOfferingAt(3).addStudent(s7);
-//		
-//		courseList.add(new Course ("ENSF", 337));
-//		courseList.get(1).addOffering(new CourseOffering(1, 150));
-//		courseList.get(1).getCourseOfferingAt(0).addStudent(s);
-//		courseList.get(1).getCourseOfferingAt(0).addStudent(s1);
-//		courseList.get(1).getCourseOfferingAt(0).addStudent(s2);
-//		courseList.get(1).getCourseOfferingAt(0).addStudent(s3);
-//		courseList.get(1).getCourseOfferingAt(0).addStudent(s4);
-//		courseList.get(1).getCourseOfferingAt(0).addStudent(s5);
-//		courseList.get(1).getCourseOfferingAt(0).addStudent(s6);
-//		courseList.get(1).getCourseOfferingAt(0).addStudent(s7);
-//		courseList.get(1).addPreReq(courseList.get(0));
-//		
-//		courseList.add(new Course ("ENSF", 409));
-//		courseList.get(2).addOffering(new CourseOffering(1, 150));
-//		courseList.get(2).addPreReq(courseList.get(0));
-//		courseList.get(2).getCourseOfferingAt(0).addStudent(s);
-//		courseList.get(2).getCourseOfferingAt(0).addStudent(s1);
-//		courseList.get(2).getCourseOfferingAt(0).addStudent(s2);
-//		courseList.get(2).getCourseOfferingAt(0).addStudent(s3);
-//		courseList.get(2).getCourseOfferingAt(0).addStudent(s4);
-//		courseList.get(2).getCourseOfferingAt(0).addStudent(s5);
-//		courseList.get(2).getCourseOfferingAt(0).addStudent(s6);
-//		courseList.get(2).getCourseOfferingAt(0).addStudent(s7);
-//		courseList.get(2).addPreReq(courseList.get(1));
-//		
-//		courseList.add(new Course ("ENGG", 200));
-//		courseList.get(3).addOffering(new CourseOffering(1, 200));
-//		courseList.get(3).addOffering(new CourseOffering(2, 200));
-//		courseList.get(3).getCourseOfferingAt(0).addStudent(s8);
-//		courseList.get(3).getCourseOfferingAt(0).addStudent(s9);
-//		courseList.get(3).getCourseOfferingAt(1).addStudent(s2);
-//		courseList.get(3).getCourseOfferingAt(1).addStudent(s3);
-//		courseList.get(3).getCourseOfferingAt(0).addStudent(s4);
-//		courseList.get(3).getCourseOfferingAt(0).addStudent(s5);
-//		courseList.get(3).getCourseOfferingAt(1).addStudent(s6);
-//		courseList.get(3).getCourseOfferingAt(1).addStudent(s7);
-//		
-//		courseList.add(new Course ("ENGG", 201));
-//		courseList.get(4).addOffering(new CourseOffering(1, 200));
-//		courseList.get(4).addOffering(new CourseOffering(2, 200));
-//		courseList.get(4).getCourseOfferingAt(0).addStudent(s8);
-//		courseList.get(4).getCourseOfferingAt(0).addStudent(s9);
-//		courseList.get(4).getCourseOfferingAt(1).addStudent(s2);
-//		courseList.get(4).getCourseOfferingAt(1).addStudent(s3);
-//		courseList.get(4).getCourseOfferingAt(0).addStudent(s4);
-//		courseList.get(4).getCourseOfferingAt(0).addStudent(s5);
-//		courseList.get(4).getCourseOfferingAt(1).addStudent(s);
-//		courseList.get(4).getCourseOfferingAt(1).addStudent(s1);
-//		
-//		courseList.add(new Course ("MATH", 275));
-//		courseList.get(5).addOffering(new CourseOffering(1, 100));
-//		courseList.get(5).addOffering(new CourseOffering(2, 100));
-//		courseList.get(5).addOffering(new CourseOffering(3, 100));
-//		courseList.get(5).addOffering(new CourseOffering(4, 100));
-//		courseList.get(5).getCourseOfferingAt(0).addStudent(s8);
-//		courseList.get(5).getCourseOfferingAt(1).addStudent(s9);
-//		courseList.get(5).getCourseOfferingAt(2).addStudent(s2);
-//		courseList.get(5).getCourseOfferingAt(3).addStudent(s3);
-//		courseList.get(5).getCourseOfferingAt(0).addStudent(s4);
-//		courseList.get(5).getCourseOfferingAt(1).addStudent(s5);
-//		courseList.get(5).getCourseOfferingAt(2).addStudent(s6);
-//		courseList.get(5).getCourseOfferingAt(3).addStudent(s7);
-//		
-//		courseList.add(new Course ("PHYS", 259));
-//		courseList.get(6).addOffering(new CourseOffering(1, 150));
-//		courseList.get(6).addOffering(new CourseOffering(2, 150));
-//		courseList.get(6).getCourseOfferingAt(0).addStudent(s);
-//		/*courseList.get(6).getCourseOfferingAt(0).addStudent(s1);
-//		courseList.get(6).getCourseOfferingAt(1).addStudent(s2);
-//		courseList.get(6).getCourseOfferingAt(1).addStudent(s3);
-//		courseList.get(6).getCourseOfferingAt(0).addStudent(s4);
-//		courseList.get(6).getCourseOfferingAt(0).addStudent(s5);
-//		courseList.get(6).getCourseOfferingAt(1).addStudent(s6);
-//		courseList.get(6).getCourseOfferingAt(1).addStudent(s7);*/
-		
-		String line;
-		String[] words;
-		int i = 0;
-		int j = 0;
-		while(courseScan.hasNextLine()) {
-			line = courseScan.nextLine();
-			words = line.split(";");
-			courseList.add(new Course(words[0],Integer.parseInt(words[1])));
-			line = courseScan.nextLine();
-			words = line.split(";");
-			j=0;
-			while(j<words.length-1) {
-				CourseOffering theOffering = new CourseOffering(Integer.parseInt(words[j]), Integer.parseInt(words[j+1]));
-				courseList.get(i).addOffering(theOffering);
-				offeringList.add(theOffering);
-				j++;
+	
+	public void addCourse(Student s, Course c, int sec) {
+		s.addRegistration(new Registration());
+		for(CourseOffering theCourseOffering: courseOfferingList)
+			if(theCourseOffering.getTheCourse().getCourseName() == c.getCourseName() && theCourseOffering.getTheCourse().getCourseNum() == c.getCourseNum()
+			&& theCourseOffering.getSecNum() == sec) {
+				theCourseOffering.addStudent(s);
+				s.getOfferingList().add(theCourseOffering);
 			}
-			i++;
+		int offeringId = -1;
+		try {
+			while(myCourseOfferingRs.next()) {
+				if(myCourseOfferingRs.getString("name")==c.getCourseName()&&myCourseOfferingRs.getInt("number")==c.getCourseNum()
+				&& myCourseOfferingRs.getInt("secnum")==sec) {
+					offeringId = myCourseOfferingRs.getInt("id");
+					break;
+				}
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
 		
-		while(studentScan.hasNextLine()) {
-			line = studentScan.nextLine();
-			words = line.split(";");
-			Student theStudent = new Student(words[0],Integer.parseInt(words[1]));
-			theStudent.setOfferingList(offeringList);
-			studentList.add(theStudent);
-			
-			
-		}
+		int courseSet = 3;
+		for(CourseOffering Offering: s.getOfferingList())
+			courseSet++;
 		
-//		int i = 1;
-		for(Course course: courseList) {
-			for(Student student: studentList) {
-				for(CourseOffering offering: course.getOfferingList())
-					offering.addStudent(student);
-			}
+        try {
+			PreparedStatement updateId = myConn.prepareStatement("UPDATE courseregistration SET student = ? WHERE "+s.getStudentId()+" = ?");
+			updateId.setInt(courseSet, offeringId);
+			updateId.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
 
-		
-		return courseList;
+        System.out.println("Insert complete.");
 	}
+	
+	public void removeCourse(Student s, Course c, int sec) {
+		s.removeCourse(c.getCourseName(), sec);
+		for(CourseOffering theCourseOffering: courseOfferingList)
+			if(theCourseOffering.getTheCourse().getCourseName() == c.getCourseName() && theCourseOffering.getTheCourse().getCourseNum() == c.getCourseNum()
+			&& theCourseOffering.getSecNum() == sec) {
+				theCourseOffering.removeStudent(s);
+				s.getOfferingList().remove(theCourseOffering);
+			}
+		int offeringId = -1;
+		try {
+			while(myCourseOfferingRs.next()) {
+				if(myCourseOfferingRs.getString("name")==c.getCourseName()&&myCourseOfferingRs.getInt("number")==c.getCourseNum()
+				&& myCourseOfferingRs.getInt("secnum")==sec) {
+					offeringId = myCourseOfferingRs.getInt("id");
+					break;
+				}
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		int courseSet = 3;
+		for(CourseOffering Offering: s.getOfferingList())
+			courseSet++;
+		
+        try {
+			PreparedStatement updateId = myConn.prepareStatement("UPDATE courseregistration SET student = ? WHERE "+s.getStudentId()+" = ?");
+			updateId.setInt(courseSet, -1);
+			updateId.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 
+        System.out.println("Remove complete.");
+	}
+	
+	public static void main(String[] args) {
+		new DBManager();
+	}
+	
 
 }

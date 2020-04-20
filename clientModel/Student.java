@@ -4,73 +4,45 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-
+/**
+ * 
+ * @author Logan Boras, Aditya Raj, Vanessa Chen
+ * class to contain the data of a student
+ */
 public class Student {
 	private String studentName;
 	private int studentId;
 	private ArrayList<CourseOffering> offeringList;
 	private ArrayList<Registration> studentRegList;
 	
+	/**
+	 * constructor class for the student
+	 * @param studentName name of the student
+	 * @param studentId the student's ID number
+	 */
 	public Student (String studentName, int studentId) {
 		this.setStudentName(studentName);
 		this.setStudentId(studentId);
 		offeringList = new ArrayList<CourseOffering>();
 		studentRegList = new ArrayList<Registration>();
 	}
-
-	public String getStudentName() {
-		return studentName;
-	}
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
-
-	public int getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
 	
-	public ArrayList<CourseOffering> getOfferingList() {
-		return offeringList;
-	}
-	
+	/**
+	 * converts class data into a string to be printed
+	 */
 	@Override
 	public String toString () {
 		String st = "Student Name: " + getStudentName() + "\n" +
 				"Student Id: " + getStudentId() + "\n\n";
 		return st;
 	}
-
-	public void addRegistration(Registration registration) {
-		// TODO Auto-generated method stub
-		studentRegList.add(registration);
-	}
 	
-	public void removeRegistration(Registration registration) {
-		// TODO Auto-generated method stub
-		studentRegList.remove(registration);
-	}
-	
-	public void addCourseOffering(CourseOffering c) {
-		offeringList.add(c);
-	}
-	
-	public void removeCourseOffering(CourseOffering c) {
-		offeringList.remove(c);
-	}
-	
-	public CourseOffering searchCourse(String name, int num) {
-		for(CourseOffering c: offeringList) {
-			if(c.getTheCourse().getCourseName().contentEquals(name) && c.getTheCourse().getCourseNum() == num)
-				return c;
-		}
-		return null;
-	}
-	
+	/**
+	 * Searches and returns a course registration from the students list
+	 * @param name name of the registered course
+	 * @param num course number
+	 * @return returns course registration
+	 */
 	public Registration searchRegistration(String name, int num) {
 		for(Registration reg : studentRegList) {
 			if(reg.getTheOffering().getTheCourse().getCourseName().contentEquals(name) && 
@@ -80,6 +52,10 @@ public class Student {
 		return null;
 	}
 	
+	/**
+	 * converts the course data into a string to be printed
+	 * @return the string to be printed
+	 */
 	public String printCourses() {
 		String st= "";
 		if(offeringList.size() == 0)
@@ -132,10 +108,57 @@ public class Student {
 		}
 	}*/
 	
+	//Getters and setters
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+	
+	public ArrayList<CourseOffering> getOfferingList() {
+		return offeringList;
+	}
+	
 	public boolean checkCourseAmount() {
 		if(offeringList.size() < 6)
 			return true;
 		return false;
+	}
+	
+	public void addRegistration(Registration registration) {
+		// TODO Auto-generated method stub
+		studentRegList.add(registration);
+	}
+	
+	public void removeRegistration(Registration registration) {
+		// TODO Auto-generated method stub
+		studentRegList.remove(registration);
+	}
+	
+	public void addCourseOffering(CourseOffering c) {
+		offeringList.add(c);
+	}
+	
+	public void removeCourseOffering(CourseOffering c) {
+		offeringList.remove(c);
+	}
+	
+	public CourseOffering searchCourse(String name, int num) {
+		for(CourseOffering c: offeringList) {
+			if(c.getTheCourse().getCourseName().contentEquals(name) && c.getTheCourse().getCourseNum() == num)
+				return c;
+		}
+		return null;
 	}
 
 

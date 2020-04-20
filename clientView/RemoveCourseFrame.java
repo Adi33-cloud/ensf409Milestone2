@@ -8,7 +8,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+/**
+ * 
+ * @author Aditya Raj, Vanessa Chen, Logan Boras
+ * @version 1.0
+ * 
+ * A class to display the option of removing a course from the student's list
+ *
+ */
 public class RemoveCourseFrame {
 	private String course;
 	private String courseId;
@@ -21,6 +28,9 @@ public class RemoveCourseFrame {
 	private JTextField userInputCourseId;
 	private JTextArea textArea;
 	
+	/**
+	 * constructor method for the class, initializes GUI frame and displays it
+	 */
 	public RemoveCourseFrame() {
 		
 		inputFrame= new JFrame("Remove Course To Student Courses");
@@ -53,8 +63,9 @@ public class RemoveCourseFrame {
 //		});
 
 
-}
-
+	}
+	
+	// getters and setters for the class
 	public JFrame getInputFrame() {
 		return inputFrame;
 	}

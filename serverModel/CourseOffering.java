@@ -8,10 +8,14 @@ public class CourseOffering {
 	private Course theCourse;
 	private ArrayList<Student> studentList;
 	private ArrayList <Registration> offeringRegList;
+	private int offeringId;
 	
-	public CourseOffering (int secNum, int secCap) {
+
+
+	public CourseOffering (int secNum, int secCap, int id) {
 		this.setSecNum(secNum);
 		this.setSecCap(secCap);
+		this.offeringId=id;
 		studentList = new ArrayList <Student>();
 		offeringRegList = new ArrayList <Registration>();
 	}
@@ -47,7 +51,7 @@ public class CourseOffering {
 	@Override
 	public String toString () {
 		String st = "\n";
-		st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNum() + "\n";
+//		st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNum() + "\n";
 		st += "Section Num: " + getSecNum() + ", section cap: "+ getSecCap() +"\n";
 		for(Student s: studentList)
 			st += s;
@@ -72,6 +76,14 @@ public class CourseOffering {
 	
 	public void removeStudent(Student s) {
 		studentList.remove(s);
+	}
+	
+	public int getOfferingId() {
+		return offeringId;
+	}
+
+	public void setOfferingId(int offeringId) {
+		this.offeringId = offeringId;
 	}
 
 
