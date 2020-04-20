@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class DBManager {
 	ArrayList <Course> courseList;
+	ArrayList <CourseOffering> offeringList;
 	ArrayList<Student> studentList;
 	private Scanner studentScan;
 	private Scanner courseScan;
@@ -14,6 +15,7 @@ public class DBManager {
 	public DBManager () {
 		courseList = new ArrayList<Course>();
 		studentList = new ArrayList<Student>();
+		offeringList = new ArrayList<CourseOffering>();
 		try {
 			studentScan = new Scanner(new File("Students.txt"));
 			courseScan = new Scanner(new File("Courses.txt"));
@@ -136,7 +138,9 @@ public class DBManager {
 			words = line.split(";");
 			j=0;
 			while(j<words.length-1) {
-				courseList.get(i).addOffering(new CourseOffering(Integer.parseInt(words[j]), Integer.parseInt(words[j+1])));
+				CourseOffering theOffering = new CourseOffering(Integer.parseInt(words[j]), Integer.parseInt(words[j+1]));
+				courseList.get(i).addOffering(theOffering);
+				offeringList.add(theOffering);
 				j++;
 			}
 			i++;
@@ -145,14 +149,19 @@ public class DBManager {
 		while(studentScan.hasNextLine()) {
 			line = studentScan.nextLine();
 			words = line.split(";");
-			studentList.add(new Student(words[0],Integer.parseInt(words[1])));
+			Student theStudent = new Student(words[0],Integer.parseInt(words[1]));
+			theStudent.setOfferingList(offeringList);
+			studentList.add(theStudent);
+			
+			
 		}
 		
 //		int i = 1;
 		for(Course course: courseList) {
-			//course.addOffering(new CourseOffering(1,100));
-			for(Student student: studentList)
-				course.getCourseOfferingAt(0).addStudent(student);
+			for(Student student: studentList) {
+				for(CourseOffering offering: course.getOfferingList())
+					offering.addStudent(student);
+			}
 		}
 
 		

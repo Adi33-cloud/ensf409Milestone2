@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -27,11 +28,18 @@ public class ViewStudentCoursesFrame {
 		textArea= new JTextArea(50,50);
 		searchButton = new JButton("SEARCH");
 		
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVisible(true);
+		
+		//inputFrame.add(inputPanel);
+		
 		inputPanel.add(label);
 		inputPanel.add(userInput);
 		inputPanel.add(searchButton);
-		inputPanel.add(textArea);
+		//inputPanel.add(textArea);
 		inputFrame.add(inputPanel);
+		inputPanel.add(scrollPane);
 		
 		inputFrame.pack();
 		userInput.setVisible(true);

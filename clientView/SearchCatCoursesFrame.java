@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -33,14 +34,18 @@ public class SearchCatCoursesFrame extends JFrame {
 		label2 = new JLabel("Please enter the Course Id: ");
 		userInput = new JTextField(20);
 		setUserInputCourseId(new JTextField(20));
-		setTextArea(new JTextArea(1,50));
+		setTextArea(new JTextArea(10,50));
 		inputPanel.setLayout(new FlowLayout());
+		
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVisible(true);
 		
 		inputPanel.add(label);
 		inputPanel.add(userInput);
 		inputPanel.add(label2);
 		inputPanel.add(getUserInputCourseId());
-		inputPanel.add(getTextArea());
+		inputPanel.add(scrollPane);
 		inputFrame.add(inputPanel);
 		
 		inputFrame.pack();

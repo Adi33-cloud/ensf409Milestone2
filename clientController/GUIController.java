@@ -1,5 +1,8 @@
 package clientController;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 <<<<<<< HEAD
 import clientController.ClientCom;
@@ -25,8 +28,12 @@ public class GUIController implements Runnable {
 	private int id;
 	private int section;
 	private String option;
+	private BufferedReader socketIn;
+	private PrintWriter socketOut;
 
-	public GUIController() {
+	public GUIController(BufferedReader in, PrintWriter out) {
+		socketIn = in;
+		socketOut = out;
 //		login= new LoginFrame();
 //		login.getLogin().addActionListener((ActionEvent a) -> {
 //			student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
@@ -45,7 +52,8 @@ public class GUIController implements Runnable {
 				option1.getTextArea().setText("The course you entered was "+ option1.getCourse() + " " + option1.getCourseId());
 				name= option1.getCourse();
 				id = Integer.parseInt(option1.getCourseId()); 
-				option="1";
+				setOption("1");
+				socketOut.println("1" + ";" + name + ";" + id);
 			});
 			
 		});
@@ -58,11 +66,12 @@ public class GUIController implements Runnable {
 				option2.setCourse(option2.getUserInputCourse().getText());
 				option2.setCourseId(option2.getUserInputCourseId().getText());
 				option2.setCourseSection(option2.getUserInputCourseSection().getText());
-				option2.getTextArea().setText(option2.getCourse() +" "+ option2.getCourseId()+" section "+ option2.getCourseSection()+  " was added");
+//				option2.getTextArea().setText("");
 				name= option2.getCourse();
 				id= Integer.parseInt(option2.getCourseId());
 				section=Integer.parseInt(option2.getCourseSection());
-				option= "2";
+				setOption("2");
+				socketOut.println("2;" + name + ";" + id +";"+section);
 			});
 		});
 		
@@ -73,10 +82,12 @@ public class GUIController implements Runnable {
 			theButton.addActionListener(ae->{
 				option3.setCourse(option3.getUserInput().getText());
 				option3.setCourseId(option3.getUserInputCourseId().getText());
-				option3.getTextArea().setText(option3.getCourse() +" "+ option3.getCourseId()+  " was removed");
+//				option3.getTextArea().setText(option3.getCourse() +" "+ option3.getCourseId()+  " was removed");
 				id= Integer.parseInt(option3.getCourseId());
 				section= 0;
-				option="3";
+				name= option3.getCourse();
+				setOption("3");
+				socketOut.println("3;" + name + ";" + id +";"+section);
 			});
 		});
 		
@@ -86,7 +97,8 @@ public class GUIController implements Runnable {
 			name=null;
 			id=0;
 			section=0;
-			option="4";
+			setOption("4");
+			socketOut.println("4");
 		});
 		
 		main.getB5().addActionListener((ActionEvent e)->{
@@ -95,11 +107,12 @@ public class GUIController implements Runnable {
 			JButton theButton = option5.getSearchButton();
 			theButton.addActionListener(ae->{
 				option5.setId(option5.getUserInput().getText());
-				option5.getTextArea().setText(" Default Courses\n ensf409 \n math271 \n your mom \n Logans dad (DILF)");
+				option5.getTextArea().setText("");
 				name=null;
 				id= Integer.parseInt(option5.getId());
 				section=0;
-				option="5";
+				setOption("5");
+				socketOut.println("5;" + id);
 			});
 			
 
@@ -107,14 +120,42 @@ public class GUIController implements Runnable {
 		
 		main.getB6().addActionListener((ActionEvent e)->{
 			System.exit(0);
-			option="6";
+			setOption("6");
+			socketOut.println("6");
 		});
 		
 	}
 	
-//	public static void main(String[] args) {
-//		new GUIController();
-//	}
+	public void display(String theData) {
+		switch(Integer.parseInt(option)) {
+		case 1:
+			option1.getTextArea().append(theData + "\n");
+			break;
+		case 2:
+			option2.getTextArea().append(theData + "\n");
+			break;
+		case 3:
+			option3.getTextArea().append(theData + "\n");
+			break;
+		case 4:
+			//option4.getTextArea().setText("hi vanessa");
+			option4.getTextArea().append(theData + "\n");
+			System.out.println(theData.length());
+			break;
+		case 5:
+			option5.getTextArea().append(theData + "\n");
+			break;
+		case 6:
+			
+		default:
+			System.out.println("oops");
+			
+		}
+	}
+	
+	public static void main(String[] args) {
+	new GUIController();
+	}
 
 	@Override
 	public void run() {
@@ -126,6 +167,21 @@ public class GUIController implements Runnable {
 		});
 	}
 
+	public String getOption() {
+		return option;
+	}
+
+	public void setOption(String option) {
+		this.option = option;
+	}
+	
+	public PrintWriter getSocketOut() {
+		return socketOut;
+	}
+
+	public void setSocketOut(PrintWriter socketOut) {
+		this.socketOut = socketOut;
+	}
 	
 }
 

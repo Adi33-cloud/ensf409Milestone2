@@ -81,6 +81,10 @@ public class Course {
 		return false;
 	}
 	
+	public ArrayList<CourseOffering> getOfferingList() {
+		return offeringList;
+	}
+
 	public boolean getClassSize() {
 		int sum = 0;
 		for(CourseOffering c : offeringList)
@@ -88,5 +92,19 @@ public class Course {
 		if(sum >= 8)
 			return true;
 		return false;
+	}
+
+
+
+	public ArrayList<Course> getPreReq() {
+		return preReq;
+	}
+
+	public void setPreReq(ArrayList<Course> preReq) {
+		this.preReq = preReq;
+	}
+
+	public void setOfferingList(ArrayList<CourseOffering> offeringList) {
+		this.offeringList = offeringList;
 	}
 }
