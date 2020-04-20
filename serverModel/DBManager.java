@@ -13,7 +13,7 @@ public class DBManager {
 	private ArrayList<Student> studentList;
 	private ArrayList<Course> courseList;
 	private ArrayList<CourseOffering> courseOfferingList;
-	
+
 	Connection myConn;
 	Statement myStat;
 	Statement myStatCourse;
@@ -102,7 +102,7 @@ public class DBManager {
 					for(CourseOffering o: courseOfferingList) {
 						if(courseId == o.getOfferingId()){
 							System.out.println(courseId + " " + o.getOfferingId());
-							studentList.get(i).addCourseOffering(o);
+							studentList.get(i).setOfferingList(courseOfferingList);;
 							studentList.get(i).addRegistration(new Registration(studentList.get(i), o));;
 						}
 					}
@@ -177,6 +177,35 @@ public class DBManager {
         System.out.println("Insert complete.");
 	}
 	
+	public void addCourse(Student s, int offeringId) {
+//		try {
+//			while(myCourseOfferingRs.next()) {
+//				if(myCourseOfferingRs.getString("name")==c.getCourseName()&&myCourseOfferingRs.getInt("number")==c.getCourseNum()
+//				&& myCourseOfferingRs.getInt("secnum")==sec) {
+//					offeringId = myCourseOfferingRs.getInt("id");
+//					break;
+//				}
+//			}
+//		} catch (SQLException e1) {
+//			e1.printStackTrace();
+//		}
+		System.out.println("SIZE: " + s.getStudentRegList().size());
+		int courseSet = 2;
+		for(int i = 0; i < s.getStudentRegList().size(); i++)
+			courseSet++;
+		
+        try {
+			PreparedStatement updateId = myConn.prepareStatement("UPDATE 'courseregistration' SET 'student' = ? WHERE 'id' = ?");
+			//updateId.setRowId(courseSet, s.getStudentId());
+			updateId.setInt(courseSet, offeringId);
+			updateId.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+        System.out.println("Insert complete.");
+	}
+	
 	public void removeCourse(Student s, Course c, int sec) {
 		s.removeCourse(c.getCourseName(), sec);
 		for(CourseOffering theCourseOffering: courseOfferingList)
@@ -213,9 +242,39 @@ public class DBManager {
         System.out.println("Remove complete.");
 	}
 	
-	public static void main(String[] args) {
-		new DBManager();
-	}
+//	public static void main(String[] args) {
+//		new DBManager();
+//	}
 	
+	public ArrayList<Student> getStudentList() {
+		return studentList;
+	}
+
+	public void setStudentList(ArrayList<Student> studentList) {
+		this.studentList = studentList;
+	}
+
+	public ArrayList<Course> getCourseList() {
+		return courseList;
+	}
+
+	public void setCourseList(ArrayList<Course> courseList) {
+		this.courseList = courseList;
+	}
+
+	public ArrayList<CourseOffering> getCourseOfferingList() {
+		return courseOfferingList;
+	}
+
+	public void setCourseOfferingList(ArrayList<CourseOffering> courseOfferingList) {
+		this.courseOfferingList = courseOfferingList;
+	}
+
+	public Student searchStudent(int i) {
+		for(Student s: studentList)
+			if(s.getStudentId()==i)
+				return s;
+		return null;
+	}
 
 }

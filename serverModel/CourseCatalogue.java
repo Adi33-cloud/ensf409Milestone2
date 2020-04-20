@@ -5,18 +5,26 @@ import java.util.ArrayList;
 public class CourseCatalogue {
 private ArrayList <Course> courseList;
 private ArrayList <CourseOffering> offeringList;
+private DBManager db;
 	
 	public CourseCatalogue () {
 		loadFromDataBase ();
 	}
 	
 	private void loadFromDataBase() {
-		// TODO Auto-generated method stub
-		DBManager db = new DBManager();
-//		setCourseList(db.readFromDataBase());
-//		offeringList = db.offeringList;
+		db = new DBManager();
+		courseList = db.getCourseList();
+		offeringList = db.getCourseOfferingList();
 	}
 	
+	public DBManager getDb() {
+		return db;
+	}
+
+	public void setDb(DBManager db) {
+		this.db = db;
+	}
+
 	public ArrayList<CourseOffering> getOfferingList() {
 		return offeringList;
 	}

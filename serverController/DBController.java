@@ -34,6 +34,14 @@ public class DBController implements Runnable {
 		String line = "";
 		String[] words;
 		try {
+			line = socketIn.readLine();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		words = line.split(";");
+		student = cat.getDb().searchStudent(Integer.parseInt(words[1]));
+		System.out.println("Welcome " + student.getStudentName());
+		try {
 		while (true) {
 			line = socketIn.readLine();
 			words = line.split(";");
@@ -65,7 +73,7 @@ public class DBController implements Runnable {
 		case 4:
 			return printCatalogue();
 		case 5:
-			return printStudentCourses();
+			return printStudentCourses(serverCom.getStudentId());
 			
 		default:
 			return "Invalid input. Try again.";
@@ -75,8 +83,10 @@ public class DBController implements Runnable {
 	
 	
 	private String addCourse(String courseName, int courseId, int section, int sqlId) {
-		// TODO Auto-generated method stub
-		return student.addCourse(courseName, courseId, section, sqlId);
+		String theString = student.addCourse(courseName, courseId, section, sqlId);
+		String[] words = theString.split(";");
+		cat.getDb().addCourse(student, Integer.parseInt(words[1]));
+		return words[2];
 	}
 
 	public String searchCourse(String courseName, int courseNumber) {
@@ -108,8 +118,8 @@ public class DBController implements Runnable {
 		return cat.toString();
 	}
 	
-	public String printStudentCourses() {
-		return student.printCourses();
+	public String printStudentCourses(int i) {
+		return cat.getDb().searchStudent(i).printCourses();
 	}
 
 	public PrintWriter getOutput() {

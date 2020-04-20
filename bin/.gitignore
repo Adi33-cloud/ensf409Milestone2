@@ -1,7 +1,4 @@
-/ConnectionClass.class
-/clientController/
-/clientModel/
-/clientView/
-/doc/
 /serverController/
+/clientController/
 /serverModel/
+/clientModel/

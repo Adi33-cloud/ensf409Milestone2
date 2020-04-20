@@ -117,46 +117,27 @@ public class Student {
 	 */
 	public String printCourses() {
 		String st= "";
-		if(offeringList.size() == 0)
+		if(studentRegList.size() == 0)
 			return "You are not enrolled in any courses!\n";
-		for(CourseOffering c : offeringList) {
-			 st+= c.toString();
+		for(Registration r : studentRegList) {
+			 st+= r.toString();
 		}
 		return st;
 	}
 	
 	public String addCourse(String name, int num, int section, int courseId) {
-//		if(c.getClassSize() == false)
-//			System.out.println("\n"+c.getCourseName()+" "+c.getCourseNum()+" is not available due to low enrolment.");
-//		else {
-//			@SuppressWarnings("resource")
-//			Scanner scan = new Scanner(System.in);
-//			Registration reg = new Registration();
-//			if(c.checkPreReq(this) == false)
-//				System.out.println("\nYou do not have the necessary prerequisites for this course!\n");
-//			else{
-//				System.out.println(c);
-//				System.out.print("Please Select a Section: ");
-//				int i = scan.nextInt();
-//				if(c.getCourseOfferingAt(i-1) == null)
-//					System.out.println("/nSection not found.");
-//				else {
-//					reg.completeRegistration(this, c.getCourseOfferingAt(i-1));
-//					c.getCourseOfferingAt(i-1).addRegistration(reg);
-//					c.getCourseOfferingAt(i-1).addStudent(this);
-//					this.addCourseOffering(c.getCourseOfferingAt(i-1));
-//					System.out.println("Course Succussfully added.");
-//				}
-//			}
-//		}
+		
 		CourseOffering c = this.searchCourse(name, num);
 		if(c == null) {
-			c = new CourseOffering(num, section, courseId);
-			offeringList.add(c);
-			return "\nCourse Successfully added.";
+			return "\nCourse is not offered.";
 		}
 		else {
-			return "\nYou are already enrolled in this course.";
+			for(Registration reg: studentRegList)
+				if(reg.getTheOffering().getTheCourse().getCourseName().contentEquals(c.getTheCourse().getCourseName())
+						&& reg.getTheOffering().getTheCourse().getCourseNum() == c.getTheCourse().getCourseNum())
+					return "\nYou are already enrolled in this course.";
+			studentRegList.add(new Registration(this, c));
+			return this.studentId+";"+c.getOfferingId()+";"+"\nSuccessfully enrolled in "+c.getTheCourse().getCourseName()+".";
 		}
 	}
 	
@@ -172,7 +153,7 @@ public class Student {
 			this.removeCourseOffering(c);
 			c.removeRegistration(reg);
 			c.removeStudent(this);
-			return "\nCourse Successfully removed.";
+			return "\nCourse successfully removed.";
 		}
 	}
 	

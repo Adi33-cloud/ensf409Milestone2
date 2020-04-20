@@ -20,7 +20,7 @@ public class ServerCom {
 	private int courseId;
 	private int section;
 	private String studentName;
-	private String studentId;
+	private int studentId;
 	private int option;
 	private Socket aSocket;
 	private BufferedReader socketIn;
@@ -90,12 +90,10 @@ public class ServerCom {
 			courseId = Integer.parseInt(words[2]);
 			break;
 		case 4:
-//			courseName = words[1];
-//			courseId = Integer.parseInt(words[2]);
 			break;
 		case 5:
 //			courseName = words[1];
-			courseId = Integer.parseInt(words[1]);
+			studentId = Integer.parseInt(words[1]);
 			break;
 		case 6:
 			return;
@@ -159,7 +157,7 @@ public class ServerCom {
 	}
 
 	
-	public String getStudentId() {
+	public int getStudentId() {
 		return studentId;
 	}
 

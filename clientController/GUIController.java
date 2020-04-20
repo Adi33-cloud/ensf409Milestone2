@@ -179,8 +179,9 @@ public class GUIController implements Runnable {
 		//new GUIController();
 		login= new LoginFrame();
 		login.getLogin().addActionListener((ActionEvent a) -> {
-			student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
+			//student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
 			initialize();
+			socketOut.println(login.getUserInputStudentName().getText()+";"+Integer.parseInt(login.getUserInputStudentId().getText()));
 		});
 	}
 
