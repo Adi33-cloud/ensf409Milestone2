@@ -9,9 +9,7 @@ import java.net.Socket;
 public class ClientCom {
 	private PrintWriter socketOut;
 	private Socket aSocket;
-	private String stdIn;
 	private BufferedReader socketIn;
-	private String line;
 	private GUIController theGUI;
 	
 	public ClientCom(String serverName, int portNumber){
@@ -28,7 +26,6 @@ public class ClientCom {
 	public void communicate() {
 		theGUI.run();
 		String response = "";
-		String append;
 		boolean on = true;
 		while (on) {
 			try {

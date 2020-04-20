@@ -30,50 +30,50 @@ public class ServerCom {
 	public ServerCom (int portNumber) {
 		try {
 			serverSocket = new ServerSocket(portNumber);
-			aSocket = new Socket();
+			//aSocket = new Socket();
 			System.out.println("Waiting to begin...");
-			aSocket = serverSocket.accept();
-			System.out.println("Connection Accepted");
+			//aSocket = serverSocket.accept();
+			System.out.println("Connection accepted.");
 			pool= Executors.newCachedThreadPool();
-			socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-			socketOut = new PrintWriter(aSocket.getOutputStream(), true);
+			//socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
+			//socketOut = new PrintWriter(aSocket.getOutputStream(), true);
 		} catch (IOException e) {
 			
 		}
 	}
 	
-	public void communicateWithClient() {
-		try {
-
-			DBController theDB = new DBController("Logan", 101, this);
-			String line = "";
-			String[] words;
-			while (true) {
-				line = socketIn.readLine();
-				words = line.split(";");
-				if(line!=null && !line.isEmpty()) {
-					try {
-					option = Integer.parseInt(words[0]);
-					update(option, words);
-					//System.out.println(line);
-					theDB.update();
-					socketOut.println(theDB.getOutput());
-					//System.out.println(theDB.getOutput());
-					}catch(NumberFormatException e) {
-						//System.out.println(line);
-					}
-				}
-			}
-		} catch (Exception e) {
-			//threadPool.shutdown();
-			e.printStackTrace();
-		}
-	}
+//	public void communicateWithClient() {
+//		try {
+//
+////			DBController theDB = new DBController("Logan", 101, this, socketIn, socketOut);
+////			pool.execute(theDB);
+////			String line = "";
+////			String[] words;
+////			while (true) {
+////				line = socketIn.readLine();
+////				words = line.split(";");
+////				if(line!=null && !line.isEmpty()) {
+////					try {
+////					option = Integer.parseInt(words[0]);
+////					update(option, words);
+////					//theDB.update();
+////					socketOut.println(theDB.getOutput());
+////					}catch(NumberFormatException e) {
+////					}
+////				}
+////			}
+//		} catch (Exception e) {
+//			//threadPool.shutdown();
+//			e.printStackTrace();
+//		}
+//	}
 	
 	
 
 
-	private void update(int option, String[] words) {
+	//private void update(int option, String[] words) {
+	public void update(int option, String[] words) {
+
 		switch(option) {
 		case 1:
 			courseName = words[1];
@@ -103,11 +103,38 @@ public class ServerCom {
 		}
 		
 	}
+	
+	public void runServer () {
+		try {
+			while (true) {
+				aSocket = serverSocket.accept();
+				System.out.println("Connection accepted by server.");
+				socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
+				socketOut = new PrintWriter(aSocket.getOutputStream(), true);
+				DBController theDB = new DBController("Logan", 101, this, socketIn, socketOut);
+				pool.execute(theDB);
+				System.out.println("in run server");
+				}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
+	}
+	
+	private void closeConnection() {
+		try {
+			socketIn.close();
+			socketOut.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) throws IOException{
 		ServerCom server = new ServerCom(8099);
 		System.out.println("Server is now running.");
-		server.communicateWithClient();
+		//server.communicateWithClient();
+		server.runServer();
 	}
 
 	public String getCourseName() {

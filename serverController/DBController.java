@@ -1,26 +1,60 @@
 package serverController;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import serverModel.*;
 
 
-public class DBController {
-	private ServerCom serverCom; //don't know what to communicate
+public class DBController implements Runnable {
+	private ServerCom serverCom;
 	private CourseCatalogue cat;
 	private Student student;
-	private String output;
+	private PrintWriter socketOut;
+	private BufferedReader socketIn;
 	
-	public DBController(String studentName,int StudentId, ServerCom serverCom) {
+	public DBController(String studentName,int StudentId, ServerCom serverCom, BufferedReader in, PrintWriter out) {
 		cat= new CourseCatalogue();
 		student= new Student(studentName,StudentId);
 		student.setOfferingList(cat.getOfferingList());
 		this.serverCom = serverCom;
+		this.socketOut = out;
+		this.socketIn = in;
+	}
+	
+	@Override
+	public void run() {
+		update();
 	}
 	
 	public void update() {
-		setOutput(selection());
+		//setOutput(selection());
+		int option = -1;
+		String line = "";
+		String[] words;
+		try {
+		while (true) {
+			line = socketIn.readLine();
+			words = line.split(";");
+			if(line!=null && !line.isEmpty()) {
+				try {
+				option = Integer.parseInt(words[0]);
+				serverCom.update(option, words);
+				//theDB.update();
+				String response = selection(option);
+				System.out.println(response);
+				socketOut.println(response);
+				}catch(NumberFormatException e) {
+				}
+			}
+		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public String selection() {
-		switch(serverCom.getOption()) {
+	public String selection(int option) {
+		switch(option) {
 		case 1:
 			return searchCourse(serverCom.getCourseName(),serverCom.getCourseId());
 		case 2:
@@ -40,7 +74,6 @@ public class DBController {
 	
 	
 	private String addCourse(String courseName, int courseId, int section) {
-		// TODO Auto-generated method stub
 		return student.addCourse(courseName, courseId, section);
 	}
 
@@ -77,13 +110,14 @@ public class DBController {
 		return student.printCourses();
 	}
 
-	public String getOutput() {
-		return output;
+	public PrintWriter getOutput() {
+		return socketOut;
 	}
 
-	public void setOutput(String output) {
-		this.output = output;
+	public void setOutput(PrintWriter output) {
+		this.socketOut = output;
 	}
+
 }
 
 
