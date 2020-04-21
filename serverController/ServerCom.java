@@ -1,5 +1,4 @@
 package serverController;
-import serverModel.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,12 +9,15 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import clientController.GUIController;
-
-
+/**
+ * 
+ * @author Logan Boras, Vanessa Chen, Aditya Raj This class is the main server
+ *         class to start the server. This class communicates with the client
+ *         and uses DBController to execute the logic of the program.
+ */
 public class ServerCom {
 	private ServerSocket serverSocket;
-	private ExecutorService pool; 
+	private ExecutorService pool;
 	private String courseName;
 	private int courseId;
 	private int section;
@@ -26,21 +28,26 @@ public class ServerCom {
 	private BufferedReader socketIn;
 	private PrintWriter socketOut;
 	private int sqlId;
-	
-	
-	public ServerCom (int portNumber) {
+
+	public ServerCom(int portNumber) {
 		try {
 			serverSocket = new ServerSocket(portNumber);
 			System.out.println("Waiting to begin...");
-			pool= Executors.newCachedThreadPool();
+			pool = Executors.newCachedThreadPool();
 		} catch (IOException e) {
-			
+
 		}
 	}
-	
+
+	/**
+	 * Updates the member variables of this class to the user's input.
+	 * 
+	 * @param option
+	 * @param words
+	 */
 	public void update(int option, String[] words) {
 
-		switch(option) {
+		switch (option) {
 		case 1:
 			courseName = words[1];
 			courseId = Integer.parseInt(words[2]);
@@ -65,10 +72,14 @@ public class ServerCom {
 		default:
 			System.out.println("oops");
 		}
-		
+
 	}
-	
-	public void runServer () {
+
+	/**
+	 * Method to run the server and execute a new thread for each new client to run
+	 * multiple clients.
+	 */
+	public void runServer() {
 		try {
 			while (true) {
 				aSocket = serverSocket.accept();
@@ -77,13 +88,16 @@ public class ServerCom {
 				socketOut = new PrintWriter(aSocket.getOutputStream(), true);
 				DBController theDB = new DBController("Logan", 101, this, socketIn, socketOut);
 				pool.execute(theDB);
-				}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		closeConnection();
 	}
-	
+
+	/**
+	 * Closes the connections of the sockets.
+	 */
 	private void closeConnection() {
 		try {
 			socketIn.close();
@@ -93,15 +107,23 @@ public class ServerCom {
 		}
 	}
 
-	private void setSqlId(int id) {
-		this.sqlId = id;
-		
-	}
-
-	public static void main(String[] args) throws IOException{
+	/**
+	 * Main method to start the program on the server side.
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
 		ServerCom server = new ServerCom(8099);
 		System.out.println("Server is now running.");
 		server.runServer();
+	}
+
+	// Getters and Setters
+
+	private void setSqlId(int id) {
+		this.sqlId = id;
+
 	}
 
 	public String getCourseName() {
@@ -116,7 +138,6 @@ public class ServerCom {
 		return studentName;
 	}
 
-	
 	public int getStudentId() {
 		return studentId;
 	}

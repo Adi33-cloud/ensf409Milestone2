@@ -48,11 +48,6 @@ public class GUIController implements Runnable {
 	public GUIController(BufferedReader in, PrintWriter out) {
 		socketIn = in;
 		socketOut = out;
-//		login= new LoginFrame();
-//		login.getLogin().addActionListener((ActionEvent a) -> {
-//			student=new Student(login.getUserInputStudentName().getText(),Integer.parseInt(login.getUserInputStudentId().getText()));
-//			initialize();
-//		});
 	}
 
 	/**
@@ -137,7 +132,7 @@ public class GUIController implements Runnable {
 		main.getB6().addActionListener((ActionEvent e) -> {
 			main.dispose();
 			LoginFrame login = new LoginFrame();
-			login.getLogin().addActionListener(ae-> initialize());
+			login.getLogin().addActionListener(ae -> initialize());
 			setOption("6");
 			socketOut.println("6");
 		});

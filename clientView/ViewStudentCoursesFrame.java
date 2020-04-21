@@ -1,7 +1,5 @@
 package clientView;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +13,8 @@ import javax.swing.JTextField;
  * @author Aditya Raj, Vanessa Chen, Logan Boras
  * @version 1.0
  * 
- * A class to display the option of viewing all of the courses in a student's list
+ *          A class to display the option of viewing all of the courses in a
+ *          student's list
  *
  */
 public class ViewStudentCoursesFrame {
@@ -27,49 +26,39 @@ public class ViewStudentCoursesFrame {
 	private JTextField userInput;
 	private JTextArea textArea;
 	private String id;
-	
+
 	/**
 	 * Constructor class to initialize the GUI frame and display it
 	 */
 	public ViewStudentCoursesFrame() {
-		inputFrame= new JFrame("Student Courses");
+		inputFrame = new JFrame("Student Courses");
 		inputPanel = new JPanel();
 		label = new JLabel("Please enter the ID of the student you want to see the courses for: ");
 		userInput = new JTextField(20);
-		textArea= new JTextArea(50,50);
+		textArea = new JTextArea(50, 50);
 		searchButton = new JButton("SEARCH");
-		
+
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setVisible(true);
-		
-		//inputFrame.add(inputPanel);
-		
+
 		inputPanel.add(label);
 		inputPanel.add(userInput);
 		inputPanel.add(searchButton);
-		//inputPanel.add(textArea);
 		inputFrame.add(inputPanel);
 		inputPanel.add(scrollPane);
-		
+
 		inputFrame.pack();
 		userInput.setVisible(true);
 		inputFrame.setVisible(true);
-		
-//		userInput.addActionListener((ActionEvent a) -> {
-//			id= userInput.getText();
-//			textArea.setText(" Default Courses\n ensf409 \n math271 \n your mom \n Logans dad (DILF)");
-//			
-//		});
 
+	}
 
-}
-	
-	//Getters and setters
+	// Getters and setters
 	public String getId() {
 		return id;
 	}
-	
+
 	public JFrame getInputFrame() {
 		return inputFrame;
 	}
@@ -121,6 +110,5 @@ public class ViewStudentCoursesFrame {
 	public void setId(String id) {
 		this.id = id;
 	}
-
 
 }

@@ -1,19 +1,19 @@
 package clientView;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 /**
  * 
  * @author Aditya Raj, Vanessa Chen, Logan Boras
  * @version 1.0
  * 
- * A class to display the option of removing a course from the student's list
+ *          A class to display the option of removing a course from the
+ *          student's list
  *
  */
 public class RemoveCourseFrame {
@@ -27,21 +27,21 @@ public class RemoveCourseFrame {
 	private JTextField userInput;
 	private JTextField userInputCourseId;
 	private JTextArea textArea;
-	
+
 	/**
 	 * constructor method for the class, initializes GUI frame and displays it
 	 */
 	public RemoveCourseFrame() {
-		
-		inputFrame= new JFrame("Remove Course To Student Courses");
+
+		inputFrame = new JFrame("Remove Course To Student Courses");
 		inputPanel = new JPanel();
 		label = new JLabel("Please enter the Course name you want to remove: ");
 		userInput = new JTextField(10);
-		label2= new JLabel("Please enter the Course ID number");
-		userInputCourseId= new JTextField(10);
-		textArea= new JTextArea(1,30);
+		label2 = new JLabel("Please enter the Course ID number");
+		userInputCourseId = new JTextField(10);
+		textArea = new JTextArea(1, 30);
 		removeButton = new JButton("REMOVE");
-		
+
 		inputPanel.add(label);
 		inputPanel.add(userInput);
 		inputPanel.add(label2);
@@ -49,22 +49,14 @@ public class RemoveCourseFrame {
 		inputPanel.add(removeButton);
 		inputPanel.add(textArea);
 		inputFrame.add(inputPanel);
-		
+
 		inputFrame.pack();
 		userInput.setVisible(true);
 		userInputCourseId.setVisible(true);
 		inputFrame.setVisible(true);
-		
-//		userInput.addActionListener((ActionEvent a) -> {
-//			course= userInput.getText();
-//			courseId= userInputCourseId.getText();
-//			textArea.setText(course +" "+ courseId+  " was removed");
-//			
-//		});
-
 
 	}
-	
+
 	// getters and setters for the class
 	public JFrame getInputFrame() {
 		return inputFrame;
@@ -146,5 +138,4 @@ public class RemoveCourseFrame {
 		return courseId;
 	}
 
-	
 }
