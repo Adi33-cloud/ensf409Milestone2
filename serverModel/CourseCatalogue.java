@@ -77,7 +77,7 @@ private DBManager db;
 				st += "\n";
 			}
 			else
-				st += c.getCourseName()+" "+c.getCourseNum()+" is not available due to low enrolment.\n";
+				st += c;
 		}
 		return st;
 	}

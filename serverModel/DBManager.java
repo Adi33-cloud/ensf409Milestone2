@@ -178,27 +178,30 @@ public class DBManager {
 	}
 	
 	public void addCourse(Student s, int offeringId) {
-//		try {
-//			while(myCourseOfferingRs.next()) {
-//				if(myCourseOfferingRs.getString("name")==c.getCourseName()&&myCourseOfferingRs.getInt("number")==c.getCourseNum()
-//				&& myCourseOfferingRs.getInt("secnum")==sec) {
-//					offeringId = myCourseOfferingRs.getInt("id");
-//					break;
-//				}
-//			}
-//		} catch (SQLException e1) {
-//			e1.printStackTrace();
-//		}
 		System.out.println("SIZE: " + s.getStudentRegList().size());
-		int courseSet = 2;
-		for(int i = 0; i < s.getStudentRegList().size(); i++)
+		int courseSet = 1;
+		for(int i = 1; i <= s.getStudentRegList().size(); i++) {			
+			try {
+				Statement query = myConn.createStatement();
+				String str = "select course" + courseSet + " from student where id = "+s.getStudentId();
+				ResultSet rs = query.executeQuery(str);
+				rs.next();
+				if(rs.getInt(1)<=0) {
+					break;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			courseSet++;
-		
+		}
+		if(courseSet==7) {
+			System.out.println("already enrolled in 6 courses.");
+			return;
+		}
         try {
-			PreparedStatement updateId = myConn.prepareStatement("UPDATE 'courseregistration' SET 'student' = ? WHERE 'id' = ?");
-			//updateId.setRowId(courseSet, s.getStudentId());
-			updateId.setInt(courseSet, offeringId);
-			updateId.executeUpdate();
+			Statement updateId = myConn.createStatement();
+			String sql = "update student set course"+courseSet+" = "+ offeringId +" where id = "+s.getStudentId();
+			updateId.executeUpdate(sql);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -240,6 +243,41 @@ public class DBManager {
 		}
 
         System.out.println("Remove complete.");
+	}
+	
+	public void removeCourse(Student s, String name, int num) {
+		System.out.println("SIZE: " + s.getStudentRegList().size());
+		int courseSet = 1;
+		int offeringId = -1;
+		for(CourseOffering o: courseOfferingList) {
+			offeringId = o.getOfferingId();
+			if(o.getTheCourse().getCourseName().contentEquals(name)&&o.getTheCourse().getCourseNum()==num) {
+				System.out.println("ID FOUND: "+offeringId);
+				offeringId = offeringId/10;
+				break;
+			}
+		}
+		for(int i = 0; i <= s.getStudentRegList().size(); i++) {
+			try {
+				Statement query = myConn.createStatement();
+				String str = "select course" + courseSet + " from student where id = "+s.getStudentId();
+				ResultSet rs = query.executeQuery(str);
+				rs.next();
+				System.out.println("COMPARATOR: "+rs.getInt(1));
+				if(rs.getInt(1)/10==offeringId) {
+					Statement updateId = myConn.createStatement();
+					String sql = "update student set course"+courseSet+" = "+ 0 +" where id = "+s.getStudentId();
+					updateId.executeUpdate(sql);
+			        System.out.println("Remove complete.");
+					return;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			courseSet++;
+		}
+		System.out.println("Remove failed.");
+
 	}
 	
 //	public static void main(String[] args) {

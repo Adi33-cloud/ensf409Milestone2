@@ -135,7 +135,9 @@ public class GUIController implements Runnable {
 		});
 
 		main.getB6().addActionListener((ActionEvent e) -> {
-			System.exit(0);
+			main.dispose();
+			LoginFrame login = new LoginFrame();
+			login.getLogin().addActionListener(ae-> initialize());
 			setOption("6");
 			socketOut.println("6");
 		});

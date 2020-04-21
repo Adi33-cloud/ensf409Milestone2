@@ -55,7 +55,7 @@ public class Registration {
 	public String toString () {
 		String st = "\n";
 		st += "Student Name: " + getTheStudent().getStudentName() + "\n";
-		st += "The Offering: " + getTheOffering().getTheCourse().getCourseName() + "\n";
+		st += "The Offering: " + getTheOffering().getTheCourse().getCourseName() +" "+ getTheOffering().getTheCourse().getCourseNum()+"\n";
 		st += "Grade: " + getGrade();
 		st += "\n-----------\n";
 		return st;

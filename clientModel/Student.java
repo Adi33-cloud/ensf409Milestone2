@@ -140,13 +140,16 @@ public class Student {
 		if (c == null) {
 			return "\nCourse is not offered.";
 		} else {
+			if(studentRegList.size()>=6) {
+				return "You are already enrolled in 6 courses!";
+			}
 			for (Registration reg : studentRegList)
 				if (reg.getTheOffering().getTheCourse().getCourseName().contentEquals(c.getTheCourse().getCourseName())
 						&& reg.getTheOffering().getTheCourse().getCourseNum() == c.getTheCourse().getCourseNum())
 					return "\nYou are already enrolled in this course.";
 			studentRegList.add(new Registration(this, c));
 			return this.studentId + ";" + c.getOfferingId() + ";" + "\nSuccessfully enrolled in "
-					+ c.getTheCourse().getCourseName() + ".";
+					+ c.getTheCourse().getCourseName() + " " +c.getTheCourse().getCourseNum()+" section "+c.getSecNum()+".";
 		}
 	}
 
@@ -169,7 +172,7 @@ public class Student {
 			this.removeCourseOffering(c);
 			c.removeRegistration(reg);
 			c.removeStudent(this);
-			return "\nCourse successfully removed.";
+			return c.getTheCourse().getCourseName() + ";" + c.getTheCourse().getCourseNum() + ";" + "\nCourse successfully removed.";
 		}
 	}
 

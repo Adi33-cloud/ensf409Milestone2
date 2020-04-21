@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
 		b3 = new JButton("Remove course from student course");
 		b4= new JButton("View All courses in catalogue");
 		b5 = new JButton("View all courses taken by student");
-		b6 = new JButton("Quit");
+		b6 = new JButton("Logout");
 		
 		setTitle("Main Window");
 		setSize(350, 400);

@@ -85,8 +85,10 @@ public class DBController implements Runnable {
 	private String addCourse(String courseName, int courseId, int section, int sqlId) {
 		String theString = student.addCourse(courseName, courseId, section, sqlId);
 		String[] words = theString.split(";");
-		cat.getDb().addCourse(student, Integer.parseInt(words[1]));
-		return words[2];
+		if(words.length>1) {
+			cat.getDb().addCourse(student, Integer.parseInt(words[1]));
+			return words[2];
+		}else return words[0];
 	}
 
 	public String searchCourse(String courseName, int courseNumber) {
@@ -109,7 +111,12 @@ public class DBController implements Runnable {
 	 */
 
 	public String removeCourse(String courseName, int courseNumber) {
-		return student.removeCourse(courseName, courseNumber);
+		String theString = student.removeCourse(courseName, courseNumber);
+		String[] words = theString.split(";");
+		if(words.length>1) {
+			cat.getDb().removeCourse(student, words[0], Integer.parseInt(words[1]));
+			return words[2];
+		}else return words[0];
 	}
 
 	public String printCatalogue() {
