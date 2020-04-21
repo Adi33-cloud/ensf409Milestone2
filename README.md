@@ -22,4 +22,5 @@ If all goes well, the output of the program should be displayed/generated.
 ## Bonus
 
 Bonus features:
+
     - Maintains a list of users and has a login feature
