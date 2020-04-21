@@ -31,47 +31,13 @@ public class ServerCom {
 	public ServerCom (int portNumber) {
 		try {
 			serverSocket = new ServerSocket(portNumber);
-			//aSocket = new Socket();
 			System.out.println("Waiting to begin...");
-			//aSocket = serverSocket.accept();
 			pool= Executors.newCachedThreadPool();
-			//socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-			//socketOut = new PrintWriter(aSocket.getOutputStream(), true);
 		} catch (IOException e) {
 			
 		}
 	}
 	
-//	public void communicateWithClient() {
-//		try {
-//
-////			DBController theDB = new DBController("Logan", 101, this, socketIn, socketOut);
-////			pool.execute(theDB);
-////			String line = "";
-////			String[] words;
-////			while (true) {
-////				line = socketIn.readLine();
-////				words = line.split(";");
-////				if(line!=null && !line.isEmpty()) {
-////					try {
-////					option = Integer.parseInt(words[0]);
-////					update(option, words);
-////					//theDB.update();
-////					socketOut.println(theDB.getOutput());
-////					}catch(NumberFormatException e) {
-////					}
-////				}
-////			}
-//		} catch (Exception e) {
-//			//threadPool.shutdown();
-//			e.printStackTrace();
-//		}
-//	}
-	
-	
-
-
-	//private void update(int option, String[] words) {
 	public void update(int option, String[] words) {
 
 		switch(option) {
@@ -92,7 +58,6 @@ public class ServerCom {
 		case 4:
 			break;
 		case 5:
-//			courseName = words[1];
 			studentId = Integer.parseInt(words[1]);
 			break;
 		case 6:
@@ -136,7 +101,6 @@ public class ServerCom {
 	public static void main(String[] args) throws IOException{
 		ServerCom server = new ServerCom(8099);
 		System.out.println("Server is now running.");
-		//server.communicateWithClient();
 		server.runServer();
 	}
 
@@ -144,13 +108,9 @@ public class ServerCom {
 		return courseName;
 	}
 
-	
-
 	public int getCourseId() {
 		return courseId;
 	}
-
-	
 
 	public String getStudentName() {
 		return studentName;
@@ -160,8 +120,6 @@ public class ServerCom {
 	public int getStudentId() {
 		return studentId;
 	}
-
-	
 
 	public int getOption() {
 		return option;
@@ -178,8 +136,5 @@ public class ServerCom {
 	public int getsqlId() {
 		return sqlId;
 	}
-
-	
-
 
 }
