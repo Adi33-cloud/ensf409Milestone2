@@ -2,12 +2,15 @@
 
 ##  Team Members
 Name: Logan Boras
+
 Email: logan.boras@ucalgary.ca
 
 Name: Vanessa Chen
+
 Email: vanessa.chen2@ucalgary.ca
 
 Name: Aditya Raj
+
 Email: aditya.raj1@ucalgary.ca
 
 ## Usage
